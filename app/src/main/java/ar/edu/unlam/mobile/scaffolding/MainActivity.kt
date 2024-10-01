@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffolding.ui.components.BottomBar
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +47,7 @@ fun MainScreen() {
     // a través del back stack
     val controller = rememberNavController()
     Scaffold(
-        bottomBar = { BottomBar(controller = controller) },
+        bottomBar = { SnackBarCart(controller) },
         floatingActionButton = {
             IconButton(onClick = { controller.navigate("home") }) {
                 Icon(Icons.Filled.Home, contentDescription = "Home")
