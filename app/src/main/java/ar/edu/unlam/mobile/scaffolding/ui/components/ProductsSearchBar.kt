@@ -27,26 +27,27 @@ fun ProductsSearchBar(
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search"
+                contentDescription = "Search",
             )
         },
-        colors = OutlinedTextFieldDefaults.colors(
-            unfocusedContainerColor = Color(0xFFF9F9F9),
-            unfocusedBorderColor = Color.Transparent,
-        ),
+        colors =
+            OutlinedTextFieldDefaults.colors(
+                unfocusedContainerColor = Color(0xFFF9F9F9),
+                unfocusedBorderColor = Color.Transparent,
+            ),
         shape = RoundedCornerShape(20.dp),
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = "Buscar productos...", color = Color.Gray) }
+        placeholder = {
+            Text(
+                text = "Buscar productos...",
+                color = Color.Gray,
+            )
+        },
     )
-
 }
 
 @Preview
 @Composable
 fun ProductsSearchBarPreview() {
-    ProductsSearchBar(
-        searchQuery = "",
-        onSearchQueryChange = {}
-    )
+    ProductsSearchBar(searchQuery = "", onSearchQueryChange = {})
 }
-
