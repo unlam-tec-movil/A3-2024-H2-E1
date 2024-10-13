@@ -43,7 +43,7 @@ fun SnackBarCart(navController: NavHostController) {
          }
          Spacer(modifier = Modifier.weight(1f))
          Button(
-             onClick = { navController.navigate("home") },
+             onClick = { navController.navigate("details") },
              colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
              modifier = Modifier.size(width = 220.dp, height = 32.dp)
              ) {
