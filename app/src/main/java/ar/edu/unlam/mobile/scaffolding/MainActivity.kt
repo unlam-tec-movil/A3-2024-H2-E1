@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.ui.components.BottomBar
 import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
@@ -54,15 +55,11 @@ fun MainScreen() {
             }
         },
     ) { paddingValue ->
-        // NavHost es el componente que funciona como contenedor de los otros componentes que
-        // podrán ser destinos de navegación.
         NavHost(navController = controller, startDestination = "home") {
-            // composable es el componente que se usa para definir un destino de navegación.
-            // Por parámetro recibe la ruta que se utilizará para navegar a dicho destino.
             composable("home") {
-                // Home es el componente en sí que es el destino de navegación.
                 HomeScreen(modifier = Modifier.padding(paddingValue))
             }
+
         }
     }
 }
