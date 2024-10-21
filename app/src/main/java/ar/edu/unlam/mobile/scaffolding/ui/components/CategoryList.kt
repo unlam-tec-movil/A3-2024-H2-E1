@@ -31,7 +31,7 @@ fun CategoryList() {
     LazyRow(
         modifier =
             Modifier
-                .padding(horizontal = 10.dp, vertical = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         items(items) { item ->
             CategoryItem(
