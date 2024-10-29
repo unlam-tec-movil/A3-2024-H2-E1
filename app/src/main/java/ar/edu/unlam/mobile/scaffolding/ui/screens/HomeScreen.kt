@@ -1,5 +1,8 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ar.edu.unlam.mobile.scaffolding.data.local.MenuScreen
+import androidx.navigation.NavController
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
@@ -24,7 +27,19 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.ProductsSearchBar
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
+    controller: NavController,
 ) {
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { granted ->
+            if (granted) {
+                controller.navigate("map")
+            } else {
+                // Denied
+            }
+        }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -38,7 +53,12 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            GoToMapButton(text = "Gaona 2340, Ramos Mejia")
+            GoToMapButton(
+                text = "Gaona 2340, Ramos Mejia",
+                onClick = {
+                    permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                },
+            )
             GoToTableQRButton(text = "SCAN QR")
         }
         Box(
@@ -52,14 +72,18 @@ fun HomeScreen(
         Box {
             CategoryList()
         }
-        Box {
-            MenuScreen()
-        }
+//        Box {
+//            MenuScreen()
+//        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    HomeScreen(
+        modifier = TODO(),
+        viewModel = TODO(),
+        controller = TODO(),
+    )
 }
