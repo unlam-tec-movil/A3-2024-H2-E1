@@ -28,6 +28,7 @@ fun ProductsSearchBar(
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
+                tint = Color.Gray,
             )
         },
         colors =
