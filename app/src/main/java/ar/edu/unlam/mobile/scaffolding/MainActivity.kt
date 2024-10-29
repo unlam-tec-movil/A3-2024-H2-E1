@@ -5,10 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -17,9 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffolding.ui.components.BottomBar
-import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
+import ar.edu.unlam.mobile.scaffolding.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,11 +43,11 @@ fun MainScreen() {
     // a través del back stack
     val controller = rememberNavController()
     Scaffold(
-        bottomBar = { BottomBar(controller = controller) },
+//        bottomBar = { BottomBar(controller = controller) },
         floatingActionButton = {
-            IconButton(onClick = { controller.navigate("home") }) {
-                Icon(Icons.Filled.Home, contentDescription = "Home")
-            }
+//            IconButton(onClick = { controller.navigate("home") }) {
+//                Icon(Icons.Filled.Home, contentDescription = "Home")
+//            }
         },
     ) { paddingValue ->
         // NavHost es el componente que funciona como contenedor de los otros componentes que
@@ -63,7 +58,9 @@ fun MainScreen() {
             composable("home") {
                 // Home es el componente en sí que es el destino de navegación.
                 HomeScreen(modifier = Modifier.padding(paddingValue))
-                CategoryList()
+            }
+            composable("map") {
+                MapScreen(onBackClick = { controller.navigate("home") })
             }
         }
     }
