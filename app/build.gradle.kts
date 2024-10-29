@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kotlin.compose.compiler)
-    alias(libs.plugins.secretsGradlePlugin)
 }
 
 android {

@@ -16,7 +16,6 @@ ktlint = "12.1.0"
 googleMapsCompose = "4.4.1"
 googlePlayServicesMaps = "19.0.0"
 googlePlayServicesLocation = "21.3.0"
-secretsGradlePlugin = "0.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,4 +51,3 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-secretsGradlePlugin = { id = "com.google.secrets_gradle_plugin", version.ref = "secretsGradlePlugin" }
