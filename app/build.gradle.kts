@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.secretsGradlePlugin)
 }
 
 android {
@@ -77,4 +78,11 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     androidTestImplementation(libs.google.dagger.hilt.android.testing)
     testImplementation(libs.google.dagger.hilt.android.testing)
+
+    // Google maps
+    implementation(libs.google.maps.compose)
+    implementation(libs.google.play.services.maps)
+
+    // Location
+    implementation(libs.google.play.services.location)
 }
