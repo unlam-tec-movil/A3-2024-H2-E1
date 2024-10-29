@@ -16,14 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import groovyjarjarpicocli.CommandLine.Help.Column
-import org.gradle.internal.impldep.org.h2.result.Row
-import org.jdom2.Text
-import org.tensorflow.lite.schema.Padding
-import java.awt.Color
-import java.lang.reflect.Modifier
-import javax.smartcardio.Card
-
+import ar.edu.unlam.mobile.scaffolding.R
 
 data class FoodItem(
     val title: String,

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,6 +46,11 @@ fun DetailsScreen( controller: NavHostController) {
             ) {
                 Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
                 // TODO: Reciclar lista de productos con el pedido del cliente
+                FoodItem("Hamburguesa", "", 20000, 1)
+                FoodItem("Hamburguesa", "", 20000, 1)
+                FoodItem("Hamburguesa", "", 20000, 1)
+                FoodItem("Hamburguesa", "", 20000, 1)
+                FoodItem("Hamburguesa", "", 20000, 1)
             }
      }
 }
