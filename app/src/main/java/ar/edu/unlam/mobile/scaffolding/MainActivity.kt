@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.screens.AssignedTableScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.DetailsScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.map.MapScreen
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val controller = rememberNavController()
     Scaffold(
+        bottomBar = { SnackBarCart(navController = controller) },
 //        bottomBar = { BottomBar(controller = controller) }, // Si tienes una barra de navegación
         floatingActionButton = {
 //            IconButton(onClick = { controller.navigate("home") }) {
@@ -50,16 +53,24 @@ fun MainScreen() {
         },
     ) { paddingValue ->
         NavHost(navController = controller, startDestination = "home") {
-            composable("home") {
+            composable(NavHostRouterPaths.HOME.route) {
                 // Home es el componente en sí que es el destino de navegación.
                 HomeScreen(modifier = Modifier.padding(paddingValue), controller = controller)
             }
-            composable("map") {
+            composable(NavHostRouterPaths.MAP.route) {
                 MapScreen(onBackClick = { controller.navigate("home") })
             }
-            composable("details") {
+            composable(NavHostRouterPaths.DETAILS.route) {
                 // Home es el componente en sí que es el destino de navegación.
                 DetailsScreen(controller = controller)
+            }
+            composable(NavHostRouterPaths.ASSIGNED_TABLE.route) {
+                // Home es el componente en sí que es el destino de navegación.
+                AssignedTableScreen(modifier = Modifier.padding(paddingValue), controller = controller)
+            }
+            composable(NavHostRouterPaths.CONFIRMATION.route) {
+                // Home es el componente en sí que es el destino de navegación.
+//                ConfirmationScreen(controller = controller)
             }
         }
     }

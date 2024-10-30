@@ -15,6 +15,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -24,12 +28,43 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
-fun SnackBarCart(navController: NavController) {
+fun SnackBarCart(navController: NavHostController) {
+    var currentIndex by remember { mutableStateOf(0) }
+    val steps =
+        listOf(
+            NavHostRouterPaths.HOME.route,
+            NavHostRouterPaths.DETAILS.route,
+            NavHostRouterPaths.ASSIGNED_TABLE.route,
+            NavHostRouterPaths.CONFIRMATION.route,
+        )
+
+    fun nextStep() {
+        if (currentIndex < steps.size - 1) {
+            currentIndex++
+            navController.navigate(steps[currentIndex])
+        }
+    }
+
+    // detect if the controller change the current destination
+    navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        println("destination: ${destination.route}")
+        // iterate over the steps to find the current index
+        steps.forEachIndexed { index, step ->
+            if (step == destination.route) {
+                currentIndex = index
+            }
+        }
+    }
+
+    val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+    println("currentDestination: $currentDestination")
     Box(
         Modifier
             .background(colorResource(id = R.color.white))
@@ -62,7 +97,7 @@ fun SnackBarCart(navController: NavController) {
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
-                onClick = { navController.navigate("details") },
+                onClick = { nextStep() },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
                 modifier = Modifier.size(width = 220.dp, height = 32.dp),
             ) {
