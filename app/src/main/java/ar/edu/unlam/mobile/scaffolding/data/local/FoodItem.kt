@@ -26,7 +26,7 @@ data class FoodItem(
 )
 
 @Composable
-fun MenuScreen() {
+fun MenuScreen(showSnackCart: () -> Unit) {
     val foodItems =
         listOf(
             FoodItem(
@@ -53,14 +53,16 @@ fun MenuScreen() {
         contentPadding = PaddingValues(16.dp),
     ) {
         items(foodItems.size) { index ->
-            FoodItemCard(foodItem = foodItems[index])
-
+            FoodItemCard(foodItem = foodItems[index], showSnackCart = showSnackCart)
         }
     }
 }
 
 @Composable
-fun FoodItemCard(foodItem: FoodItem) {
+fun FoodItemCard(
+    foodItem: FoodItem,
+    showSnackCart: () -> Unit,
+) {
     Card(
         modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF9F9F9)),
@@ -118,7 +120,7 @@ fun FoodItemCard(foodItem: FoodItem) {
                                 .background(
                                     color = colorResource(id = R.color.sky),
                                     shape = CircleShape,
-                                ).clickable { },
+                                ).clickable { showSnackCart() },
                         contentAlignment = Alignment.Center,
                     ) {
                         Icon(
