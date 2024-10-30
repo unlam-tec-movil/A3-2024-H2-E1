@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.screens.DetailsScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
@@ -40,9 +42,11 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val controller = rememberNavController()
     Scaffold(
-//        bottomBar = { BottomBar(controller = controller) },
+        bottomBar = {SnackBarCart(navController = controller)},
+//        bottomBar = { BottomBar(controller = controller) }, // Si tienes una barra de navegación
         floatingActionButton = {
 //            IconButton(onClick = { controller.navigate("home") }) {
+//                // Navegación a HomeScreen
 //                Icon(Icons.Filled.Home, contentDescription = "Home")
 //            }
         },
@@ -54,6 +58,10 @@ fun MainScreen() {
             }
             composable("map") {
                 MapScreen(onBackClick = { controller.navigate("home") })
+            }
+            composable("details") {
+                // Home es el componente en sí que es el destino de navegación.
+                DetailsScreen(controller = controller)
             }
         }
     }

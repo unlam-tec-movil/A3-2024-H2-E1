@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
-import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -18,10 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.data.local.MenuScreen
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductsSearchBar
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 
 @Composable
 fun HomeScreen(

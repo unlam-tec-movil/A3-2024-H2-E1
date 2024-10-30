@@ -54,6 +54,7 @@ fun MenuScreen() {
     ) {
         items(foodItems.size) { index ->
             FoodItemCard(foodItem = foodItems[index])
+
         }
     }
 }
