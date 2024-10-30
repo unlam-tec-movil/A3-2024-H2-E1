@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val controller = rememberNavController()
     Scaffold(
-        bottomBar = {SnackBarCart(navController = controller)},
+        bottomBar = { SnackBarCart(navController = controller) },
 //        bottomBar = { BottomBar(controller = controller) }, // Si tienes una barra de navegación
         floatingActionButton = {
 //            IconButton(onClick = { controller.navigate("home") }) {

@@ -52,10 +52,10 @@ fun SnackBarCart(navController: NavHostController) {
         }
     }
 
-    //detect if the controller change the current destination
+    // detect if the controller change the current destination
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
         println("destination: ${destination.route}")
-        //iterate over the steps to find the current index
+        // iterate over the steps to find the current index
         steps.forEachIndexed { index, step ->
             if (step == destination.route) {
                 currentIndex = index
@@ -116,7 +116,6 @@ fun SnackBarCart(navController: NavHostController) {
                 }
             }
         }
-
     }
 }
 
