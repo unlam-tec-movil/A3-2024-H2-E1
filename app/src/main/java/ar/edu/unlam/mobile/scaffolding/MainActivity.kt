@@ -54,7 +54,7 @@ fun MainScreen() {
         NavHost(navController = controller, startDestination = "home") {
             composable("home") {
                 // Home es el componente en sí que es el destino de navegación.
-                HomeScreen(modifier = Modifier.padding(paddingValue), controller = controller)
+                HomeScreen(modifier = Modifier.padding(paddingValue))
             }
             composable("map") {
                 MapScreen(onBackClick = { controller.navigate("home") })
