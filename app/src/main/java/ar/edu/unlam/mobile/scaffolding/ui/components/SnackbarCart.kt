@@ -24,41 +24,64 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
-fun SnackBarCart(navController: NavHostController) {
-   Box (
-       Modifier.background(colorResource(id = R.color.white)).shadow(elevation = 3.dp, spotColor = Color.Cyan).padding(24.dp)){
-     Row (
-         verticalAlignment = Alignment.CenterVertically,
-         horizontalArrangement = Arrangement.Center
-     ){
-
-         Column {
-             Text("$2400", color = Color(0XFF67B5FF), style = TextStyle(fontSize = 24.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold))
-             Text("2 items", color = Color.Gray, style = TextStyle(fontSize = 12.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold))
-         }
-         Spacer(modifier = Modifier.weight(1f))
-         Button(
-             onClick = { navController.navigate("details") },
-             colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
-             modifier = Modifier.size(width = 220.dp, height = 32.dp)
-             ) {
-                Row (
+fun SnackBarCart(navController: NavController) {
+    Box(
+        Modifier
+            .background(colorResource(id = R.color.white))
+            .shadow(elevation = 3.dp, spotColor = Color.Cyan)
+            .padding(24.dp),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Column {
+                Text(
+                    "$2400",
+                    color = Color(0XFF67B5FF),
+                    style =
+                        TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                        ),
+                )
+                Text(
+                    "2 items",
+                    color = Color.Gray,
+                    style =
+                        TextStyle(
+                            fontSize = 12.sp,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                        ),
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = { navController.navigate("details") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
+                modifier = Modifier.size(width = 220.dp, height = 32.dp),
+            ) {
+                Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
                 ) {
-                    Icon(Icons.Filled.ShoppingCart, contentDescription = "Cart", tint = Color.White, modifier = Modifier.size(14.dp))
+                    Icon(
+                        Icons.Filled.ShoppingCart,
+                        contentDescription = "Cart",
+                        tint = Color.White,
+                        modifier = Modifier.size(14.dp),
+                    )
                     Spacer(modifier = Modifier.size(8.dp))
                     Text("Ir al carrito", color = Color.White)
                 }
             }
-     }
-
-   }
+        }
+    }
 }
 
 @Preview
