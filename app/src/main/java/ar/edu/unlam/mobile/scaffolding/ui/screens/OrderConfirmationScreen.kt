@@ -38,7 +38,7 @@ fun OrderConfirmationScreen(controller: NavController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = {  },
+                title = { },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = { controller.navigate(NavHostRouterPaths.ASSIGNED_TABLE.route) }) {
