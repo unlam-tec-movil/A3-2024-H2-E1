@@ -14,16 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.data.local.MenuScreen
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductsSearchBar
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel(),
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -55,6 +58,9 @@ fun HomeScreen(
         Box {
             MenuScreen()
         }
+
+
+
     }
 }
 
