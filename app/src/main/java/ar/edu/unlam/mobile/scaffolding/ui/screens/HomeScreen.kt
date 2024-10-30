@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.data.local.MenuScreen
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
@@ -35,7 +35,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    controller: NavController,
+    controller: NavHostController,
 ) {
     var isSnackBarVisible by remember { mutableStateOf(false) }
     val bottomPadding = if (isSnackBarVisible) 66.dp else 0.dp

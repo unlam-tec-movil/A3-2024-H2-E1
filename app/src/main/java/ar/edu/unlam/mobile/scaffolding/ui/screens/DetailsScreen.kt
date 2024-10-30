@@ -16,9 +16,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
 import ar.edu.unlam.mobile.scaffolding.data.local.FoodItemCard
@@ -32,7 +34,7 @@ fun DetailsScreen(controller: NavHostController) {
                 title = { Text("Detalles del pedido") },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
-                    IconButton(onClick = { controller.navigate("home") }) {
+                    IconButton(onClick = { controller.navigate(NavHostRouterPaths.HOME.route) }) {
                         Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back")
                     }
                 },
@@ -40,9 +42,12 @@ fun DetailsScreen(controller: NavHostController) {
         },
     ) { paddingValue ->
         Column(
-            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
-            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
-            modifier = Modifier.padding(paddingValue).padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier =
+                Modifier
+                    .padding(paddingValue)
+                    .padding(horizontal = 16.dp),
         ) {
             Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
             // TODO: Arreglar el food items para que muestre los que correspondan, ahora lo agregué del otro para que quede maquetado
