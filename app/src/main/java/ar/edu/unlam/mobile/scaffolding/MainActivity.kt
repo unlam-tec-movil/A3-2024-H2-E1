@@ -17,6 +17,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 import ar.edu.unlam.mobile.scaffolding.ui.screens.AssignedTableScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.DetailsScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
+import ar.edu.unlam.mobile.scaffolding.ui.screens.OrderConfirmationScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,16 +62,13 @@ fun MainScreen() {
                 MapScreen(onBackClick = { controller.navigate("home") })
             }
             composable(NavHostRouterPaths.DETAILS.route) {
-                // Home es el componente en sí que es el destino de navegación.
                 DetailsScreen(controller = controller)
             }
             composable(NavHostRouterPaths.ASSIGNED_TABLE.route) {
-                // Home es el componente en sí que es el destino de navegación.
                 AssignedTableScreen(modifier = Modifier.padding(paddingValue), controller = controller)
             }
             composable(NavHostRouterPaths.CONFIRMATION.route) {
-                // Home es el componente en sí que es el destino de navegación.
-//                ConfirmationScreen(controller = controller)
+                OrderConfirmationScreen(controller = controller)
             }
         }
     }
