@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.data.di
 
+import ar.edu.unlam.mobile.scaffolding.domain.products.services.ProductsService
+import ar.edu.unlam.mobile.scaffolding.domain.products.usecases.ProductsUseCases
 import ar.edu.unlam.mobile.scaffolding.domain.restaurants.services.RestaurantService
 import ar.edu.unlam.mobile.scaffolding.domain.restaurants.usecases.RestaurantUseCases
 import dagger.Binds
@@ -11,5 +13,8 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class MainModule {
     @Binds
-    abstract fun binRestaurant(restaurantService: RestaurantService): RestaurantUseCases
+    abstract fun bindRestaurant(restaurantService: RestaurantService): RestaurantUseCases
+
+    @Binds
+    abstract fun bindProducts(productsService: ProductsService): ProductsUseCases
 }

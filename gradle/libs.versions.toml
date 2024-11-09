@@ -19,6 +19,7 @@ googlePlayServicesLocation = "21.3.0"
 runtimeAndroid = "1.7.3"
 storage = "1.5.0"
 room = "2.6.1"
+coilCompose = "2.4.0"
 
 
 [libraries]
@@ -51,6 +52,8 @@ google-play-services-location = { group = "com.google.android.gms", name = "play
 
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

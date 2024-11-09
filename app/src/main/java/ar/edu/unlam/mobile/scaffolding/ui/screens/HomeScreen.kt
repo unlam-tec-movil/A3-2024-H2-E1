@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     controller: NavHostController,
 ) {
+    val uiState: HomeUIState by viewModel.uiState.collectAsState()
+
     var isSnackBarVisible by remember { mutableStateOf(false) }
     val bottomPadding = if (isSnackBarVisible) 66.dp else 0.dp
 
@@ -93,7 +96,20 @@ fun HomeScreen(
             Box {
                 Column {
                     CategoryList()
-                    MenuScreen(showSnackCart = ::showSnackCart)
+                    when (val productsState = uiState.productsState) {
+                        is ProductsUIState.Success -> {
+                            MenuScreen(
+                                showSnackCart = ::showSnackCart,
+                                products = productsState.products,
+                            )
+                        }
+                        is ProductsUIState.Loading -> {
+                            // Loading
+                        }
+                        is ProductsUIState.Error -> {
+                            // Error
+                        }
+                    }
                 }
             }
         }

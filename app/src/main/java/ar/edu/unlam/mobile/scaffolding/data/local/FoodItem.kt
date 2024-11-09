@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffolding.data.local
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,52 +18,31 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.R
-
-data class FoodItem(
-    val title: String,
-    val description: String,
-    val price: Int,
-    val imageRes: Int,
-)
+import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
+import coil.compose.AsyncImage
 
 @Composable
-fun MenuScreen(showSnackCart: () -> Unit) {
-    val foodItems =
-        listOf(
-            FoodItem(
-                "Hamburguesa c/ papas",
-                "Deliciosa hamburguesa con papas fritas",
-                1200,
-                R.drawable.hamburguesa_con_papas,
-            ),
-            FoodItem("Pizza 4 quesos", "Pizza con mezcla de cuatro quesos", 1200, R.drawable.pizza),
-            FoodItem("Pastel de papas", "Pastel casero de papa", 1200, R.drawable.pastel),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-            FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-        )
-
+fun MenuScreen(
+    showSnackCart: () -> Unit,
+    products: List<Product>,
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(16.dp),
     ) {
-        items(foodItems.size) { index ->
-            FoodItemCard(foodItem = foodItems[index], showSnackCart = showSnackCart)
+        items(products.size) { index ->
+            FoodItemCard(foodItem = products[index], showSnackCart = showSnackCart)
         }
     }
 }
 
 @Composable
 fun FoodItemCard(
-    foodItem: FoodItem,
+    foodItem: Product,
     showSnackCart: () -> Unit,
 ) {
     Card(
@@ -78,14 +56,14 @@ fun FoodItemCard(
                     .fillMaxWidth()
                     .fillMaxHeight(),
         ) {
-            Box {
-                Image(
+            Box(
+                modifier = Modifier.fillMaxHeight(),
+            ) {
+                AsyncImage(
+                    model = foodItem.image,
+                    contentDescription = foodItem.name,
+                    modifier = Modifier.width(120.dp).height(150.dp),
                     contentScale = ContentScale.Crop,
-                    painter = painterResource(id = foodItem.imageRes),
-                    contentDescription = "Item comida",
-                    modifier =
-                        Modifier
-                            .size(120.dp),
                 )
             }
 
@@ -95,13 +73,15 @@ fun FoodItemCard(
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
-                    text = foodItem.title,
+                    text = foodItem.name,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(top = 8.dp),
                 )
                 Text(
                     text = foodItem.description,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(top = 6.dp).width(150.dp),
                 )
                 Row(
@@ -110,7 +90,8 @@ fun FoodItemCard(
                             .fillMaxWidth()
                             .align(Alignment.End)
                             .padding(top = 10.dp)
-                            .padding(end = 12.dp),
+                            .padding(end = 12.dp)
+                            .padding(bottom = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
