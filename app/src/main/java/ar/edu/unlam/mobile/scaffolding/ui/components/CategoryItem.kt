@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.utils.Category
@@ -54,15 +55,6 @@ fun CategoryItem(
                     .align(alignment = Alignment.Center)
                     .fillMaxSize(),
         )
-//        Image(
-//            painter = painterResource(id = R.drawable.category_pizza),
-//            contentDescription = "Categoria de Comida",
-//            modifier =
-//                Modifier
-//                    .align(alignment = Alignment.Center)
-//                    .fillMaxSize()
-//                    .padding(8.dp),
-//        )
         if (item.selected) {
             Image(
                 painter = painterResource(id = R.drawable.check_icon),
@@ -79,10 +71,17 @@ fun CategoryItem(
     }
 }
 
-// @Preview(showBackground = true)
-// @Composable
-// fun PreviewCategoryItem() {
-//    val exampleItem = CategoryItem(id = 1, name = R.drawable.category_pizza, selected = true)
-//
-//    CategoryItem(item = exampleItem, onClick = {})
-// }
+@Preview(showBackground = true)
+@Composable
+fun PreviewCategoryItem() {
+    val exampleItem =
+        Category(
+            id = 1,
+            name = "Milanesas",
+            image = @Suppress("ktlint:standard:max-line-length")
+            "https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/7fd9e77b-3396-49f3-be08-fceef56376bf/Derivates/8a096b0f-382a-47ac-b11a-62b630e0e59e.jpg",
+            selected = false,
+        )
+
+    CategoryItem(item = exampleItem, onClick = {})
+}
