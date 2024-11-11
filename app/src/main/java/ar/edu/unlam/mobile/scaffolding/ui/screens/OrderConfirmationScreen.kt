@@ -1,5 +1,11 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import android.Manifest
+import android.content.Intent
+import android.provider.MediaStore
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +42,32 @@ import ar.edu.unlam.mobile.scaffolding.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderConfirmationScreen(controller: NavController) {
+    val context = LocalContext.current
+    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+    val launcher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { result ->
+            if (result.resultCode == android.app.Activity.RESULT_OK) {
+                // Maneja el resultado de la cámara si es necesario, como la foto capturada
+                Toast.makeText(context, "Foto capturada con éxito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "No se capturó ninguna foto", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            if (isGranted) {
+                launcher.launch(cameraIntent)
+            } else {
+                Toast.makeText(context, "Permiso de cámara denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -42,7 +75,10 @@ fun OrderConfirmationScreen(controller: NavController) {
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = { controller.navigate(NavHostRouterPaths.ASSIGNED_TABLE.route) }) {
-                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = "Back",
+                        )
                     }
                 },
             )
@@ -88,6 +124,20 @@ fun OrderConfirmationScreen(controller: NavController) {
                         .size(200.dp)
                         .padding(16.dp),
             )
+
+            Button(
+                onClick = {
+                    permissionLauncher.launch(Manifest.permission.CAMERA)
+                },
+                modifier = Modifier.padding(16.dp),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF67B5FF),
+                        contentColor = Color.White,
+                    ),
+            ) {
+                Text(text = "Compartí con un amigo")
+            }
 
             // Texto explicativo del QR
             Text(
