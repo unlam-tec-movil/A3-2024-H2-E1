@@ -1,5 +1,14 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,20 +30,95 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.FileProvider
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
+import java.io.File
+import java.io.FileOutputStream
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderConfirmationScreen(controller: NavController) {
+    val context = LocalContext.current
+    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+    fun saveImageTemporarily(
+        context: Context,
+        data: Intent?,
+    ): Uri? {
+        val photoFile = File(context.cacheDir, "captured_photo.jpg")
+        val photoUri =
+            FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                photoFile,
+            )
+
+        // Guarda la imagen en el archivo temporal
+        data?.extras?.get("data")?.let { bitmap ->
+            FileOutputStream(photoFile).use { out ->
+                (bitmap as Bitmap).compress(Bitmap.CompressFormat.JPEG, 100, out)
+                out.flush()
+            }
+        }
+        return photoUri
+    }
+
+    fun shareImage(
+        context: Context,
+        imageUri: Uri,
+    ) {
+        val shareIntent =
+            Intent(Intent.ACTION_SEND).apply {
+                type = "image/*"
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+            }
+        if (shareIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(Intent.createChooser(shareIntent, "Compartir imagen en:"))
+        } else {
+            Toast
+                .makeText(
+                    context,
+                    "No hay aplicaciones instaladas para compartir",
+                    Toast.LENGTH_SHORT,
+                ).show()
+        }
+    }
+
+    val launcher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { result ->
+            if (result.resultCode == android.app.Activity.RESULT_OK) {
+                val photoUri = saveImageTemporarily(context, result.data)
+                photoUri?.let {
+                    shareImage(context, it)
+                }
+            } else {
+                Toast.makeText(context, "No se capturó ninguna foto", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            if (isGranted) {
+                launcher.launch(cameraIntent)
+            } else {
+                Toast.makeText(context, "Permiso de cámara denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -42,7 +126,10 @@ fun OrderConfirmationScreen(controller: NavController) {
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = { controller.navigate(NavHostRouterPaths.ASSIGNED_TABLE.route) }) {
-                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = "Back",
+                        )
                     }
                 },
             )
@@ -88,6 +175,20 @@ fun OrderConfirmationScreen(controller: NavController) {
                         .size(200.dp)
                         .padding(16.dp),
             )
+
+            Button(
+                onClick = {
+                    permissionLauncher.launch(Manifest.permission.CAMERA)
+                },
+                modifier = Modifier.padding(16.dp),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF67B5FF),
+                        contentColor = Color.White,
+                    ),
+            ) {
+                Text(text = "Compartí con un amigo")
+            }
 
             // Texto explicativo del QR
             Text(
