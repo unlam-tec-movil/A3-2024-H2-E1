@@ -13,6 +13,11 @@ ksp = "2.0.20-1.0.24"
 androidXHilt = "1.2.0"
 kover = "0.7.6"
 ktlint = "12.1.0"
+googleMapsCompose = "4.4.1"
+googlePlayServicesMaps = "19.0.0"
+googlePlayServicesLocation = "21.3.0"
+runtimeAndroid = "1.7.3"
+storage = "1.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +39,13 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger" }
 google-dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger" }
 google-dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
+androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
+androidx-storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
+
+google-maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "googleMapsCompose" }
+google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "googlePlayServicesMaps" }
+
+google-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "googlePlayServicesLocation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

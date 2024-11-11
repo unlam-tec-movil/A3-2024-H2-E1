@@ -53,12 +53,13 @@ fun CategoryItem(
             Image(
                 painter = painterResource(id = R.drawable.check_icon),
                 contentDescription = "Check Icon",
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .size(24.dp)
-                    .padding(end = 5.dp, top = 5.dp)
-                    .clip(RoundedCornerShape(25.dp))
-                    .background(color = colorResource(id = R.color.sky))
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .size(24.dp)
+                        .padding(end = 5.dp, top = 5.dp)
+                        .clip(RoundedCornerShape(25.dp))
+                        .background(color = colorResource(id = R.color.sky)),
             )
         }
         Image(
@@ -76,9 +77,7 @@ fun CategoryItem(
 @Preview(showBackground = true)
 @Composable
 fun PreviewCategoryItem() {
-    // Crear un objeto de ejemplo para CategoryItem
     val exampleItem = CategoryItem(id = 1, thumbnail = R.drawable.category_pizza, selected = true)
 
-    // Llamar al composable con el objeto de ejemplo
     CategoryItem(item = exampleItem, onClick = {})
 }

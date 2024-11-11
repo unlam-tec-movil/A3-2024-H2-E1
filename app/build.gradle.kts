@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.runtime.android)
+    implementation(libs.androidx.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,4 +79,11 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     androidTestImplementation(libs.google.dagger.hilt.android.testing)
     testImplementation(libs.google.dagger.hilt.android.testing)
+
+    // Google maps
+    implementation(libs.google.maps.compose)
+    implementation(libs.google.play.services.maps)
+
+    // Location
+    implementation(libs.google.play.services.location)
 }
