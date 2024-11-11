@@ -15,8 +15,7 @@ object CategoriesMock {
                 id = 1,
                 name = "Milanesas",
                 image =
-                    @Suppress("ktlint:standard:max-line-length")
-                    "https://assets.tmecosys.com/image/upload/t_web767x639/img/"+
+                    "https://assets.tmecosys.com/image/upload/t_web767x639/img/" +
                         "recipe/ras/Assets/" +
                         "7fd9e77b-3396-49f3-be08-fceef56376bf/Derivates" +
                         "/8a096b0f-382a-47ac-b11a-62b630e0e59e.jpg",
