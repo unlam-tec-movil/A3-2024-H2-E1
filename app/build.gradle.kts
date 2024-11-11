@@ -86,4 +86,10 @@ dependencies {
 
     // Location
     implementation(libs.google.play.services.location)
+
+    // Room
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.ksp)
+
+    implementation(libs.coil)
 }

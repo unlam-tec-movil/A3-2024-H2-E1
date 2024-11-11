@@ -24,6 +24,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +51,8 @@ fun HomeScreen(
     controller: NavHostController,
 ) {
     val context = LocalContext.current
+    val uiState: HomeUIState by viewModel.uiState.collectAsState()
+
     var isSnackBarVisible by remember { mutableStateOf(false) }
     val bottomPadding = if (isSnackBarVisible) 66.dp else 0.dp
     var showAgentCodeDialog = remember { mutableStateOf(false) }
@@ -160,7 +163,20 @@ fun HomeScreen(
             Box {
                 Column {
                     CategoryList()
-                    MenuScreen(showSnackCart = ::showSnackCart)
+                    when (val productsState = uiState.productsState) {
+                        is ProductsUIState.Success -> {
+                            MenuScreen(
+                                showSnackCart = ::showSnackCart,
+                                products = productsState.products,
+                            )
+                        }
+                        is ProductsUIState.Loading -> {
+                            // Loading
+                        }
+                        is ProductsUIState.Error -> {
+                            // Error
+                        }
+                    }
                 }
             }
         }

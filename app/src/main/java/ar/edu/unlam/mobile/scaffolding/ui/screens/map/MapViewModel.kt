@@ -3,12 +3,12 @@ package ar.edu.unlam.mobile.scaffolding.ui.screens.map
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.domain.restaurants.models.Restaurant
 import ar.edu.unlam.mobile.scaffolding.domain.restaurants.usecases.RestaurantUseCases
+import ar.edu.unlam.mobile.scaffolding.utils.RestaurantsMock
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -65,6 +65,7 @@ class MapViewModel
         val uiState = _uiState.asStateFlow()
 
         init {
+            insertRestaurantsInDb()
             getUserLocation()
         }
 
@@ -72,12 +73,9 @@ class MapViewModel
             viewModelScope.launch {
                 val result = requestCurrentLocation(context)
                 if (result != null) {
-                    Log.d("MapViewModel", "User latitude: ${result.latitude}")
-                    Log.d("MapViewModel", "User longitude: ${result.longitude}")
                     _uiState.value = _uiState.value.copy(userLocation = UserLocationState.Success(result))
                     getRestaurants()
                 } else {
-                    Log.d("MapViewModel", "User location not found")
                     _uiState.value = _uiState.value.copy(userLocation = UserLocationState.Error("User location not found"))
                 }
             }
@@ -87,17 +85,19 @@ class MapViewModel
             viewModelScope.launch {
                 restaurantUseCases.getRestaurants().collect { restaurants ->
                     val userLocation = (_uiState.value.userLocation as? UserLocationState.Success)?.location
-                    Log.d("MapViewModel", "User Location: $userLocation")
                     if (restaurants.isNotEmpty() && userLocation != null) {
                         val updateRestaurants =
                             restaurants.map { restaurant ->
-                                val distance = userLocation.distanceTo(restaurant.location)
+                                val restaurantLocation =
+                                    Location("").apply {
+                                        latitude = restaurant.latitude
+                                        longitude = restaurant.longitude
+                                    }
+                                val distance = userLocation.distanceTo(restaurantLocation)
                                 restaurant.copy(calculateDistance = distance / 1000)
                             }
-                        Log.d("Distance", "${updateRestaurants[0].calculateDistance}")
                         _uiState.value = _uiState.value.copy(restaurants = RestaurantsListState.Success(updateRestaurants))
                     } else {
-                        Log.d("DistanceError", "Error")
                         _uiState.value = _uiState.value.copy(restaurants = RestaurantsListState.Error("No restaurants found"))
                     }
                 }
@@ -134,6 +134,12 @@ class MapViewModel
                 continuation.invokeOnCancellation {
                     fusedLocationClient.removeLocationUpdates(locationCallback)
                 }
+            }
+        }
+
+        private fun insertRestaurantsInDb() {
+            viewModelScope.launch {
+                restaurantUseCases.saveRestaurants(RestaurantsMock.restaurantsList)
             }
         }
     }
