@@ -76,7 +76,7 @@ fun MapView(
     ) {
         restaurantsState.forEach { restaurant ->
             Marker(
-                state = MarkerState(position = LatLng(restaurant.location.latitude, restaurant.location.longitude)),
+                state = MarkerState(position = LatLng(restaurant.latitude, restaurant.longitude)),
                 title = restaurant.address,
             )
         }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -11,23 +12,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.utils.CategoriesMock
 
 @Preview(showBackground = true)
 @Composable
 fun CategoryList() {
     val items =
         remember {
-            mutableStateListOf<CategoryItem>(
-                CategoryItem(id = 1, thumbnail = R.drawable.category_pizza, selected = false),
-                CategoryItem(id = 2, thumbnail = R.drawable.category_pizza, selected = false),
-                CategoryItem(id = 3, thumbnail = R.drawable.category_pizza, selected = false),
-                CategoryItem(id = 4, thumbnail = R.drawable.category_pizza, selected = false),
-                CategoryItem(id = 5, thumbnail = R.drawable.category_pizza, selected = false),
-                CategoryItem(id = 6, thumbnail = R.drawable.category_pizza, selected = false),
-            )
+            mutableStateListOf(*CategoriesMock.categories.toTypedArray())
         }
-
     LazyRow(
         modifier =
             Modifier
@@ -40,6 +33,7 @@ fun CategoryList() {
                     val index = items.indexOf(item)
                     if (index != -1) {
                         items[index] = item.copy(selected = !item.selected)
+                        Log.d("CategoryList", "Category: ${CategoriesMock.categories[index]}")
                     }
                 },
             )
