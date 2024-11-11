@@ -1,7 +1,10 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -34,10 +37,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.FileProvider
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
+import java.io.File
+import java.io.FileOutputStream
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,13 +51,58 @@ fun OrderConfirmationScreen(controller: NavController) {
     val context = LocalContext.current
     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
+    fun saveImageTemporarily(
+        context: Context,
+        data: Intent?,
+    ): Uri? {
+        val photoFile = File(context.cacheDir, "captured_photo.jpg")
+        val photoUri =
+            FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.provider",
+                photoFile,
+            )
+
+        // Guarda la imagen en el archivo temporal
+        data?.extras?.get("data")?.let { bitmap ->
+            FileOutputStream(photoFile).use { out ->
+                (bitmap as Bitmap).compress(Bitmap.CompressFormat.JPEG, 100, out)
+                out.flush()
+            }
+        }
+        return photoUri
+    }
+
+    fun shareImage(
+        context: Context,
+        imageUri: Uri,
+    ) {
+        val shareIntent =
+            Intent(Intent.ACTION_SEND).apply {
+                type = "image/*"
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+            }
+        if (shareIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(Intent.createChooser(shareIntent, "Compartir imagen en:"))
+        } else {
+            Toast
+                .makeText(
+                    context,
+                    "No hay aplicaciones instaladas para compartir",
+                    Toast.LENGTH_SHORT,
+                ).show()
+        }
+    }
+
     val launcher =
         rememberLauncherForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
         ) { result ->
             if (result.resultCode == android.app.Activity.RESULT_OK) {
-                // Maneja el resultado de la cámara si es necesario, como la foto capturada
-                Toast.makeText(context, "Foto capturada con éxito", Toast.LENGTH_SHORT).show()
+                val photoUri = saveImageTemporarily(context, result.data)
+                photoUri?.let {
+                    shareImage(context, it)
+                }
             } else {
                 Toast.makeText(context, "No se capturó ninguna foto", Toast.LENGTH_SHORT).show()
             }
