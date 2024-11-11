@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.data.local.MenuScreen
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
@@ -57,23 +58,27 @@ fun HomeScreen(
     // Sensor Manager and Listener for Shake Detection
     val sensorManager =
         remember { context.getSystemService(Context.SENSOR_SERVICE) as SensorManager }
-    val shakeListener = remember {
-        object : SensorEventListener {
-            override fun onSensorChanged(event: SensorEvent) {
-                val x = event.values[0]
-                val y = event.values[1]
-                val z = event.values[2]
+    val shakeListener =
+        remember {
+            object : SensorEventListener {
+                override fun onSensorChanged(event: SensorEvent) {
+                    val x = event.values[0]
+                    val y = event.values[1]
+                    val z = event.values[2]
 
-                // Simple shake detection logic with a threshold
-                val shakeThreshold = 15f
-                if (x * x + y * y + z * z > shakeThreshold * shakeThreshold) {
-                    isShakeDetected.value = true
+                    // Simple shake detection logic with a threshold
+                    val shakeThreshold = 15f
+                    if (x * x + y * y + z * z > shakeThreshold * shakeThreshold) {
+                        isShakeDetected.value = true
+                    }
                 }
-            }
 
-            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+                override fun onAccuracyChanged(
+                    sensor: Sensor,
+                    accuracy: Int,
+                ) {}
+            }
         }
-    }
 
     fun showSnackCart() {
         isSnackBarVisible = !isSnackBarVisible
@@ -94,7 +99,7 @@ fun HomeScreen(
         sensorManager.registerListener(
             shakeListener,
             sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-            SensorManager.SENSOR_DELAY_UI
+            SensorManager.SENSOR_DELAY_UI,
         )
         onDispose {
             sensorManager.unregisterListener(shakeListener)
@@ -113,7 +118,7 @@ fun HomeScreen(
                 if (code == "1234") {
                     controller.navigate("agentQrScreen")
                 }
-            }
+            },
         )
     }
 
@@ -167,14 +172,16 @@ fun HomeScreen(
             modifier = Modifier.align(Alignment.BottomCenter),
         ) {
             SnackBarCart(navController = controller)
-            }
         }
     }
 }
 
 // Dialogo para ingresar el código de agente
 @Composable
-fun AgentCodeDialog(onDismiss: () -> Unit, onCodeEntered: (String) -> Unit) {
+fun AgentCodeDialog(
+    onDismiss: () -> Unit,
+    onCodeEntered: (String) -> Unit,
+) {
     var code = remember { mutableStateOf("") }
 
     AlertDialog(
@@ -184,7 +191,7 @@ fun AgentCodeDialog(onDismiss: () -> Unit, onCodeEntered: (String) -> Unit) {
             TextField(
                 value = code.value,
                 onValueChange = { code.value = it },
-                label = { Text("Ingrese el código") }
+                label = { Text("Ingrese el código") },
             )
         },
         confirmButton = {
@@ -192,12 +199,11 @@ fun AgentCodeDialog(onDismiss: () -> Unit, onCodeEntered: (String) -> Unit) {
                 onCodeEntered(code.value) // Pasar el código ingresado
                 onDismiss() // Cerrar el diálogo
             }) {
-                    Text("Ingresar") // Texto del botón
+                Text("Ingresar") // Texto del botón
             }
-        }
+        },
     )
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -206,6 +212,6 @@ fun PreviewHomeScreen() {
     HomeScreen(
         modifier = Modifier,
         viewModel = hiltViewModel(),
-        controller = navController
+        controller = navController,
     )
 }
