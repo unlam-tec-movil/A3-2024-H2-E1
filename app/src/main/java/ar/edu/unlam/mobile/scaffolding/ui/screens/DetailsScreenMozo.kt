@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,9 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
-import ar.edu.unlam.mobile.scaffolding.R
-import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
-import ar.edu.unlam.mobile.scaffolding.data.local.FoodItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +35,7 @@ fun DetailsScreenMozo(controller: NavHostController) {
                     IconButton(onClick = { controller.navigate(NavHostRouterPaths.HOME.route) }) {
                         Icon(
                             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         )
                     }
                 },
@@ -50,95 +46,28 @@ fun DetailsScreenMozo(controller: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier =
-            Modifier
-                .padding(paddingValue)
-                .padding(horizontal = 16.dp),
+                Modifier
+                    .padding(paddingValue)
+                    .padding(horizontal = 16.dp),
         ) {
-            // TODO: Arreglar el food items para que muestre los que correspondan, ahora lo agregué del otro para que quede maquetado
-            val foodItems =
-                listOf(
-                    FoodItem(
-                        "Hamburguesa c/ papas",
-                        "Deliciosa hamburguesa con papas fritas",
-                        1200,
-                        R.drawable.hamburguesa_con_papas,
-                    ),
-                    FoodItem(
-                        "Pizza 4 quesos",
-                        "Pizza con mezcla de cuatro quesos",
-                        1200,
-                        R.drawable.pizza
-                    ),
-                    FoodItem("Pastel de papas", "Pastel casero de papa", 1200, R.drawable.pastel),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                    FoodItem(
-                        "Ñoquis de papa",
-                        "Ñoquis con salsa de tomate",
-                        1200,
-                        R.drawable.noquis
-                    ),
-                )
-
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp),
             ) {
-                items(foodItems.size) { index ->
-                    FoodItemCard(foodItem = foodItems[index], showSnackCart = {})
-                }
+//                items(foodItems.size) { index ->
+//                    FoodItemCard(foodItem = foodItems[index], showSnackCart = {})
+//                }
             }
         }
     }
 }
-    @Preview(showBackground = true)
-    @Composable
-    fun PreviewDetailsScreenMozo() {
-        // Usamos un controlador de navegación falso para la previsualización
-        val navController = rememberNavController()
 
-        DetailsScreenMozo(controller = navController)
-    }
+@Preview(showBackground = true)
+@Composable
+fun PreviewDetailsScreenMozo() {
+    // Usamos un controlador de navegación falso para la previsualización
+    val navController = rememberNavController()
 
-
+    DetailsScreenMozo(controller = navController)
+}
