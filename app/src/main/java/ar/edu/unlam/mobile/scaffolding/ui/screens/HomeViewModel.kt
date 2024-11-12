@@ -2,8 +2,10 @@ package ar.edu.unlam.mobile.scaffolding.ui.screens
 
 import android.util.Log
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 import ar.edu.unlam.mobile.scaffolding.domain.products.usecases.ProductsUseCases
 import ar.edu.unlam.mobile.scaffolding.utils.ProductsMocks
@@ -35,13 +37,18 @@ class HomeViewModel
     @Inject
     constructor(
         private val productsUseCases: ProductsUseCases,
+        private val orderRepository: UserOrderRepository,
     ) : ViewModel() {
         private val _uiState = MutableStateFlow(HomeUIState())
         val uiState = _uiState.asStateFlow()
 
+        var totalPrice = mutableStateOf(0.00)
+        var totalItems = mutableStateOf(0)
+
         init {
             insertProductsDB()
             getProducts()
+            println("==UserOrderRepository: ${orderRepository.getTotalPrice()}")
         }
 
         private fun getProducts() {
@@ -61,5 +68,11 @@ class HomeViewModel
             viewModelScope.launch {
                 productsUseCases.saveProducts(ProductsMocks.productList)
             }
+        }
+
+        fun addProduct(product: Product) {
+            orderRepository.addItem(product)
+            totalItems.value = orderRepository.getItems().size
+            totalPrice.value = orderRepository.getTotalPrice().toDouble()
         }
     }

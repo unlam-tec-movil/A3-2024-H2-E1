@@ -35,7 +35,11 @@ import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
-fun SnackBarCart(navController: NavHostController) {
+fun SnackBarCart(
+    navController: NavHostController,
+    totalPrice: Double = 0.00,
+    totalItems: Int = 0,
+) {
     var currentIndex by remember { mutableStateOf(0) }
     val steps =
         listOf(
@@ -77,7 +81,7 @@ fun SnackBarCart(navController: NavHostController) {
         ) {
             Column {
                 Text(
-                    "$2400",
+                    "$$totalPrice",
                     color = Color(0XFF67B5FF),
                     style =
                         TextStyle(
@@ -86,7 +90,7 @@ fun SnackBarCart(navController: NavHostController) {
                         ),
                 )
                 Text(
-                    "2 items",
+                    "$totalItems items",
                     color = Color.Gray,
                     style =
                         TextStyle(

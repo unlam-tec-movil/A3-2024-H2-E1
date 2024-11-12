@@ -18,13 +18,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
+import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
+
 // import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(controller: NavHostController) {
+fun DetailsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: DetailsViewModel = hiltViewModel(),
+    controller: NavHostController,
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -73,9 +80,9 @@ fun DetailsScreen(controller: NavHostController) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp),
             ) {
-//                items(foodItems.size) { index ->
-//                    FoodItemCard(foodItem = foodItems[index], showSnackCart = {})
-//                }
+                items(viewModel.orderProducts.size) { index ->
+                    ProductItemCard(foodItem = viewModel.orderProducts[index], onClick = {})
+                }
             }
         }
     }

@@ -87,6 +87,7 @@ fun HomeScreen(
 
     fun showSnackCart(product: Product) {
         println("onItemClick: ${product.id} - ${product.name}")
+        viewModel.addProduct(product)
         isSnackBarVisible = !isSnackBarVisible
     }
 
@@ -192,7 +193,7 @@ fun HomeScreen(
             exit = slideOutVertically { it },
             modifier = Modifier.align(Alignment.BottomCenter),
         ) {
-            SnackBarCart(navController = controller)
+            SnackBarCart(navController = controller, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value)
         }
     }
 }
