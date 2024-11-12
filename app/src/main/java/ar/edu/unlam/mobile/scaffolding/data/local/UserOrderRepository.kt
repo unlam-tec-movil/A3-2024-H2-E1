@@ -21,4 +21,11 @@ class UserOrderRepository {
     fun addItem(product: Product) {
         items.add(product)
     }
+
+    fun removeItem(id: Int) {
+        val itemToRemove = items.firstOrNull { it.id == id }
+        if (itemToRemove != null) {
+            items.remove(itemToRemove)
+        }
+    }
 }

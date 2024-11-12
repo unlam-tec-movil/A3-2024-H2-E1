@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 
 // import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
 
@@ -51,9 +52,11 @@ fun DetailsScreen(
             modifier =
                 Modifier
                     .padding(paddingValue)
-                    .padding(horizontal = 16.dp),
+                    .fillMaxSize(),
         ) {
-            Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
+            }
             // TODO: Arreglar el food items para que muestre los que correspondan, ahora lo agregué del otro para que quede maquetado
 //            val foodItems =
 //                listOf(
@@ -76,14 +79,15 @@ fun DetailsScreen(
 //                )
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.weight(1F),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp),
             ) {
                 items(viewModel.orderProducts.size) { index ->
-                    ProductItemCard(foodItem = viewModel.orderProducts[index], onClick = {})
+                    ProductItemCard(foodItem = viewModel.orderProducts[index], onClick = { viewModel.removeItem(it.id) })
                 }
             }
+            SnackBarCart(navController = controller, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value)
         }
     }
 }

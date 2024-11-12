@@ -2,7 +2,9 @@ package ar.edu.unlam.mobile.scaffolding.ui.screens
 
 import android.util.Log
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
@@ -45,10 +47,13 @@ class HomeViewModel
         var totalPrice = mutableStateOf(0.00)
         var totalItems = mutableStateOf(0)
 
+        var isSnackBarVisible = mutableStateOf(false)
+
         init {
             insertProductsDB()
             getProducts()
             println("==UserOrderRepository: ${orderRepository.getTotalPrice()}")
+            updateSnackBar()
         }
 
         private fun getProducts() {
@@ -72,7 +77,12 @@ class HomeViewModel
 
         fun addProduct(product: Product) {
             orderRepository.addItem(product)
+            updateSnackBar()
+        }
+
+        private fun updateSnackBar() {
             totalItems.value = orderRepository.getItems().size
             totalPrice.value = orderRepository.getTotalPrice().toDouble()
+            isSnackBarVisible.value = totalItems.value > 0
         }
     }

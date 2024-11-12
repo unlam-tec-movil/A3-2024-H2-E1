@@ -54,8 +54,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val uiState: HomeUIState by viewModel.uiState.collectAsState()
 
-    var isSnackBarVisible by remember { mutableStateOf(false) }
-    val bottomPadding = if (isSnackBarVisible) 66.dp else 0.dp
+    val bottomPadding = if (viewModel.isSnackBarVisible.value) 66.dp else 0.dp
     var showAgentCodeDialog = remember { mutableStateOf(false) }
     var isShakeDetected = remember { mutableStateOf(false) }
 
@@ -88,7 +87,6 @@ fun HomeScreen(
     fun showSnackCart(product: Product) {
         println("onItemClick: ${product.id} - ${product.name}")
         viewModel.addProduct(product)
-        isSnackBarVisible = !isSnackBarVisible
     }
 
     val permissionLauncher =
@@ -188,7 +186,7 @@ fun HomeScreen(
         }
 
         AnimatedVisibility(
-            visible = isSnackBarVisible,
+            visible = viewModel.isSnackBarVisible.value,
             enter = slideInVertically { it },
             exit = slideOutVertically { it },
             modifier = Modifier.align(Alignment.BottomCenter),
