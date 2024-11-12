@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
@@ -17,14 +18,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
+import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+
 // import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(controller: NavHostController) {
+fun DetailsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: DetailsViewModel = hiltViewModel(),
+    controller: NavHostController,
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -44,9 +54,11 @@ fun DetailsScreen(controller: NavHostController) {
             modifier =
                 Modifier
                     .padding(paddingValue)
-                    .padding(horizontal = 16.dp),
+                    .fillMaxSize(),
         ) {
-            Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
+            }
             // TODO: Arreglar el food items para que muestre los que correspondan, ahora lo agregué del otro para que quede maquetado
 //            val foodItems =
 //                listOf(
@@ -69,13 +81,16 @@ fun DetailsScreen(controller: NavHostController) {
 //                )
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.weight(1F),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp),
             ) {
-//                items(foodItems.size) { index ->
-//                    FoodItemCard(foodItem = foodItems[index], showSnackCart = {})
-//                }
+                items(viewModel.orderProducts.size) { index ->
+                    ProductItemCard(foodItem = viewModel.orderProducts[index], onClick = { viewModel.removeItem(it.id) })
+                }
+            }
+            SnackBarCart(navController = controller, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {
+                Text("Confirmar", color = Color.White)
             }
         }
     }

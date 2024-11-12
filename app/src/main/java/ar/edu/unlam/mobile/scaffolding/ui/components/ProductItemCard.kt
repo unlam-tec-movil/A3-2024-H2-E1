@@ -1,13 +1,21 @@
-package ar.edu.unlam.mobile.scaffolding.data.local
+package ar.edu.unlam.mobile.scaffolding.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,50 +27,38 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 import coil.compose.AsyncImage
 
 @Composable
-fun MenuScreen(
-    showSnackCart: () -> Unit,
-    products: List<Product>,
-) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(16.dp),
-    ) {
-        items(products.size) { index ->
-            FoodItemCard(foodItem = products[index], showSnackCart = showSnackCart)
-        }
-    }
-}
-
-@Composable
-fun FoodItemCard(
+fun ProductItemCard(
     foodItem: Product,
-    showSnackCart: () -> Unit,
+    onClick: (Product) -> Unit,
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(bottom = 6.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF9F9F9)),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
     ) {
         Row(
             modifier =
                 Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
+                    .fillMaxWidth(),
         ) {
-            Box(
-                modifier = Modifier.fillMaxHeight(),
-            ) {
+            Box {
                 AsyncImage(
                     model = foodItem.image,
                     contentDescription = foodItem.name,
-                    modifier = Modifier.width(120.dp).height(150.dp),
+                    modifier =
+                        Modifier
+                            .width(120.dp)
+                            .height(150.dp),
                     contentScale = ContentScale.Crop,
                 )
             }
@@ -82,7 +78,10 @@ fun FoodItemCard(
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(top = 6.dp).width(150.dp),
+                    modifier =
+                        Modifier
+                            .padding(top = 6.dp)
+                            .width(150.dp),
                 )
                 Row(
                     modifier =
@@ -106,7 +105,7 @@ fun FoodItemCard(
                                 .background(
                                     color = colorResource(id = R.color.sky),
                                     shape = CircleShape,
-                                ).clickable { showSnackCart() },
+                                ).clickable { onClick(foodItem) },
                         contentAlignment = Alignment.Center,
                     ) {
                         Icon(
@@ -120,4 +119,21 @@ fun FoodItemCard(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductItemCardPreview() {
+    ProductItemCard(
+        foodItem =
+            Product(
+                id = 1,
+                name = "Hamburguesa c/ papas",
+                description = "Deliciosa hamburguesa con papas fritas",
+                price = 1200.00,
+                image = "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg",
+                category = "Comida rápida",
+            ),
+        onClick = {},
+    )
 }

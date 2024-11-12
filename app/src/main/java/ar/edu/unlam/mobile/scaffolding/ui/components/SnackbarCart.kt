@@ -35,7 +35,12 @@ import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
-fun SnackBarCart(navController: NavHostController) {
+fun SnackBarCart(
+    navController: NavHostController,
+    totalPrice: Double = 0.00,
+    totalItems: Int = 0,
+    content: @Composable () -> Unit,
+) {
     var currentIndex by remember { mutableStateOf(0) }
     val steps =
         listOf(
@@ -54,7 +59,7 @@ fun SnackBarCart(navController: NavHostController) {
 
     // detect if the controller change the current destination
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
-        println("destination: ${destination.route}")
+//        println("destination: ${destination.route}")
         // iterate over the steps to find the current index
         steps.forEachIndexed { index, step ->
             if (step == destination.route) {
@@ -64,7 +69,7 @@ fun SnackBarCart(navController: NavHostController) {
     }
 
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-    println("currentDestination: $currentDestination")
+//    println("currentDestination: $currentDestination")
     Box(
         Modifier
             .background(colorResource(id = R.color.white))
@@ -77,7 +82,7 @@ fun SnackBarCart(navController: NavHostController) {
         ) {
             Column {
                 Text(
-                    "$2400",
+                    "$$totalPrice",
                     color = Color(0XFF67B5FF),
                     style =
                         TextStyle(
@@ -86,7 +91,7 @@ fun SnackBarCart(navController: NavHostController) {
                         ),
                 )
                 Text(
-                    "2 items",
+                    "$totalItems items",
                     color = Color.Gray,
                     style =
                         TextStyle(
@@ -105,14 +110,7 @@ fun SnackBarCart(navController: NavHostController) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    Icon(
-                        Icons.Filled.ShoppingCart,
-                        contentDescription = "Cart",
-                        tint = Color.White,
-                        modifier = Modifier.size(14.dp),
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text("Ir al carrito", color = Color.White)
+                    content()
                 }
             }
         }
@@ -122,5 +120,14 @@ fun SnackBarCart(navController: NavHostController) {
 @Preview
 @Composable
 fun SnackBarCartPreview() {
-    SnackBarCart(navController = rememberNavController())
+    SnackBarCart(navController = rememberNavController()) {
+        Icon(
+            Icons.Filled.ShoppingCart,
+            contentDescription = "Cart",
+            tint = Color.White,
+            modifier = Modifier.size(14.dp),
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        Text("Ir al carrito", color = Color.White)
+    }
 }

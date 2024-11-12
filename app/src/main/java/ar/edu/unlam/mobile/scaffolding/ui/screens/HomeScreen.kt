@@ -15,10 +15,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -31,16 +36,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffolding.data.local.MenuScreen
+import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
+import ar.edu.unlam.mobile.scaffolding.ui.components.ProductList
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductsSearchBar
 import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 
@@ -53,8 +60,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val uiState: HomeUIState by viewModel.uiState.collectAsState()
 
-    var isSnackBarVisible by remember { mutableStateOf(false) }
-    val bottomPadding = if (isSnackBarVisible) 66.dp else 0.dp
+    val bottomPadding = if (viewModel.isSnackBarVisible.value) 66.dp else 0.dp
     var showAgentCodeDialog = remember { mutableStateOf(false) }
     var isShakeDetected = remember { mutableStateOf(false) }
 
@@ -79,12 +85,14 @@ fun HomeScreen(
                 override fun onAccuracyChanged(
                     sensor: Sensor,
                     accuracy: Int,
-                ) {}
+                ) {
+                }
             }
         }
 
-    fun showSnackCart() {
-        isSnackBarVisible = !isSnackBarVisible
+    fun showSnackCart(product: Product) {
+        println("onItemClick: ${product.id} - ${product.name}")
+        viewModel.addProduct(product)
     }
 
     val permissionLauncher =
@@ -165,14 +173,16 @@ fun HomeScreen(
                     CategoryList()
                     when (val productsState = uiState.productsState) {
                         is ProductsUIState.Success -> {
-                            MenuScreen(
-                                showSnackCart = ::showSnackCart,
+                            ProductList(
+                                onItemClick = ::showSnackCart,
                                 products = productsState.products,
                             )
                         }
+
                         is ProductsUIState.Loading -> {
                             // Loading
                         }
+
                         is ProductsUIState.Error -> {
                             // Error
                         }
@@ -182,12 +192,21 @@ fun HomeScreen(
         }
 
         AnimatedVisibility(
-            visible = isSnackBarVisible,
+            visible = viewModel.isSnackBarVisible.value,
             enter = slideInVertically { it },
             exit = slideOutVertically { it },
             modifier = Modifier.align(Alignment.BottomCenter),
         ) {
-            SnackBarCart(navController = controller)
+            SnackBarCart(navController = controller, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {
+                Icon(
+                    Icons.Filled.ShoppingCart,
+                    contentDescription = "Cart",
+                    tint = Color.White,
+                    modifier = Modifier.size(14.dp),
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                Text("Ir al carrito", color = Color.White)
+            }
         }
     }
 }
