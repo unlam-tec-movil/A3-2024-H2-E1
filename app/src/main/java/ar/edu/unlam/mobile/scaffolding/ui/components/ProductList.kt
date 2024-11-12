@@ -9,7 +9,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 
 @Composable
 fun ProductList(
-    showSnackCart: () -> Unit,
+    onItemClick: (Product) -> Unit,
     products: List<Product>,
 ) {
     LazyColumn(
@@ -18,7 +18,7 @@ fun ProductList(
         contentPadding = PaddingValues(16.dp),
     ) {
         items(products.size) { index ->
-            ProductItemCard(foodItem = products[index], showSnackCart = showSnackCart)
+            ProductItemCard(foodItem = products[index], onClick = onItemClick)
         }
     }
 }

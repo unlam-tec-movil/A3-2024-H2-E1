@@ -54,7 +54,7 @@ fun SnackBarCart(navController: NavHostController) {
 
     // detect if the controller change the current destination
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
-        println("destination: ${destination.route}")
+//        println("destination: ${destination.route}")
         // iterate over the steps to find the current index
         steps.forEachIndexed { index, step ->
             if (step == destination.route) {
@@ -64,7 +64,7 @@ fun SnackBarCart(navController: NavHostController) {
     }
 
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-    println("currentDestination: $currentDestination")
+//    println("currentDestination: $currentDestination")
     Box(
         Modifier
             .background(colorResource(id = R.color.white))

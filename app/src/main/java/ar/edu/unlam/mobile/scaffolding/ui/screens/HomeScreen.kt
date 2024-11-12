@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
@@ -79,11 +80,13 @@ fun HomeScreen(
                 override fun onAccuracyChanged(
                     sensor: Sensor,
                     accuracy: Int,
-                ) {}
+                ) {
+                }
             }
         }
 
-    fun showSnackCart() {
+    fun showSnackCart(product: Product) {
+        println("onItemClick: ${product.id} - ${product.name}")
         isSnackBarVisible = !isSnackBarVisible
     }
 
@@ -166,13 +169,15 @@ fun HomeScreen(
                     when (val productsState = uiState.productsState) {
                         is ProductsUIState.Success -> {
                             ProductList(
-                                showSnackCart = ::showSnackCart,
+                                onItemClick = ::showSnackCart,
                                 products = productsState.products,
                             )
                         }
+
                         is ProductsUIState.Loading -> {
                             // Loading
                         }
+
                         is ProductsUIState.Error -> {
                             // Error
                         }

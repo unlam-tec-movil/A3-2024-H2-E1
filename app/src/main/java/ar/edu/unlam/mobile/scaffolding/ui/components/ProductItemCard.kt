@@ -36,7 +36,7 @@ import coil.compose.AsyncImage
 @Composable
 fun ProductItemCard(
     foodItem: Product,
-    showSnackCart: () -> Unit,
+    onClick: (Product) -> Unit,
 ) {
     Card(
         modifier =
@@ -105,7 +105,7 @@ fun ProductItemCard(
                                 .background(
                                     color = colorResource(id = R.color.sky),
                                     shape = CircleShape,
-                                ).clickable { showSnackCart() },
+                                ).clickable { onClick(foodItem) },
                         contentAlignment = Alignment.Center,
                     ) {
                         Icon(
@@ -134,6 +134,6 @@ fun ProductItemCardPreview() {
                 image = "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg",
                 category = "Comida rápida",
             ),
-        showSnackCart = {},
+        onClick = {},
     )
 }
