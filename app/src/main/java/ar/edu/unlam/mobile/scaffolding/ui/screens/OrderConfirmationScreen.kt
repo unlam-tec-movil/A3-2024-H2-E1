@@ -15,14 +15,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
@@ -47,7 +45,10 @@ import java.io.FileOutputStream
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OrderConfirmationScreen(controller: NavController) {
+fun OrderConfirmationScreen(
+    controller: NavController,
+    viewModel: OrderConfirmationScreenViewModel = hiltViewModel(),
+) {
     val context = LocalContext.current
     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
@@ -124,14 +125,6 @@ fun OrderConfirmationScreen(controller: NavController) {
             CenterAlignedTopAppBar(
                 title = { },
                 modifier = Modifier.padding(8.dp),
-                navigationIcon = {
-                    IconButton(onClick = { controller.navigate(NavHostRouterPaths.ASSIGNED_TABLE.route) }) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Back",
-                        )
-                    }
-                },
             )
         },
     ) { paddingValue ->
