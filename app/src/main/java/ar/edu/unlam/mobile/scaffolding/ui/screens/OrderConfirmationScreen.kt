@@ -203,7 +203,7 @@ fun OrderConfirmationScreen(controller: NavController) {
 
             // Botón de volver al inicio
             Button(
-                onClick = { controller.navigate("inicio") },
+                onClick = { controller.navigate(NavHostRouterPaths.HOME.route) },
                 modifier = Modifier.padding(vertical = 16.dp),
                 colors =
                     ButtonDefaults.buttonColors(

@@ -39,6 +39,7 @@ fun SnackBarCart(
     navController: NavHostController,
     totalPrice: Double = 0.00,
     totalItems: Int = 0,
+    content: @Composable () -> Unit,
 ) {
     var currentIndex by remember { mutableStateOf(0) }
     val steps =
@@ -109,14 +110,7 @@ fun SnackBarCart(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    Icon(
-                        Icons.Filled.ShoppingCart,
-                        contentDescription = "Cart",
-                        tint = Color.White,
-                        modifier = Modifier.size(14.dp),
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text("Ir al carrito", color = Color.White)
+                    content()
                 }
             }
         }
@@ -126,5 +120,14 @@ fun SnackBarCart(
 @Preview
 @Composable
 fun SnackBarCartPreview() {
-    SnackBarCart(navController = rememberNavController())
+    SnackBarCart(navController = rememberNavController()) {
+        Icon(
+            Icons.Filled.ShoppingCart,
+            contentDescription = "Cart",
+            tint = Color.White,
+            modifier = Modifier.size(14.dp),
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        Text("Ir al carrito", color = Color.White)
+    }
 }
