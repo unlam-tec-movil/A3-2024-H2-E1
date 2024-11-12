@@ -6,12 +6,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AssignedTableScreenViewModel
+class OrderConfirmationScreenViewModel
     @Inject
     constructor(
         private val orderRepository: UserOrderRepository,
     ) : ViewModel() {
-        fun onChangeTable(number: Int) {
-            orderRepository.assignTable(number)
+        init {
+            println("MESA SELECCIONADA: ${orderRepository.getTable()}")
         }
     }

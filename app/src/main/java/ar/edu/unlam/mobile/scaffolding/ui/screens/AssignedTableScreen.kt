@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
+import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.TableManualInput
 
@@ -92,5 +93,5 @@ fun AssignedTableScreen(
 @Preview(showBackground = true)
 @Composable
 fun AssignedTableScreenPreview() {
-    AssignedTableScreen(modifier = Modifier, viewModel = AssignedTableScreenViewModel())
+    AssignedTableScreen(modifier = Modifier, viewModel = AssignedTableScreenViewModel(orderRepository = UserOrderRepository()))
 }

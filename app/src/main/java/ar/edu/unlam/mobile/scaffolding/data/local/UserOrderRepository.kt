@@ -3,6 +3,7 @@ package ar.edu.unlam.mobile.scaffolding.data.local
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 
 class UserOrderRepository {
+    private var userTable: Int = 0
     private var items: ArrayList<Product> = arrayListOf()
 
     /**
@@ -28,4 +29,10 @@ class UserOrderRepository {
             items.remove(itemToRemove)
         }
     }
+
+    fun assignTable(number: Int) {
+        userTable = number
+    }
+
+    fun getTable(): Number = userTable
 }

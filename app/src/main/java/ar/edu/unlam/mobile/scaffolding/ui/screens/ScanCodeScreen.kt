@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
 
 
@@ -80,5 +81,5 @@ fun ScanCodeScreen(
 @Preview(showBackground = true)
 @Composable
 fun ScanCodeScreenPreview() {
-    ScanCodeScreen(modifier = Modifier, viewModel = AssignedTableScreenViewModel())
+    ScanCodeScreen(modifier = Modifier, viewModel = AssignedTableScreenViewModel(orderRepository = UserOrderRepository()))
 }
