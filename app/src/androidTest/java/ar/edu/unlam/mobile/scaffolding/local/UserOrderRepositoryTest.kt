@@ -61,4 +61,20 @@ class UserOrderRepositoryTest {
         assertEquals(expectedUserTable, userOrderRepository.getTable())
         assertEquals(listOf(expectedItems), userOrderRepository.getItems())
     }
+
+    @Test
+    fun testRemoveItem() {
+        // Given
+        val userOrderRepository = UserOrderRepository()
+        val product1 = Product(1, "Product1", "Description", 10.0, "image", "category")
+        val product2 = Product(2, "Product2", "Description", 20.0, "image", "category")
+        userOrderRepository.addItem(product1)
+        userOrderRepository.addItem(product2)
+
+        // When
+        userOrderRepository.removeItem(1)
+
+        // Then
+        assertEquals(listOf(product2), userOrderRepository.getItems())
+    }
 }
