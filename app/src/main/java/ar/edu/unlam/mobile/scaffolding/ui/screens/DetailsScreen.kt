@@ -26,8 +26,6 @@ import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
 import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
 
-// import ar.edu.unlam.mobile.scaffolding.data.local.FoodItem
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
@@ -59,26 +57,6 @@ fun DetailsScreen(
             Column(modifier = Modifier.padding(16.dp)) {
                 Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
             }
-            // TODO: Arreglar el food items para que muestre los que correspondan, ahora lo agregué del otro para que quede maquetado
-//            val foodItems =
-//                listOf(
-//                    FoodItem(
-//                        "Hamburguesa c/ papas",
-//                        "Deliciosa hamburguesa con papas fritas",
-//                        1200,
-//                        R.drawable.hamburguesa_con_papas,
-//                    ),
-//                    FoodItem("Pizza 4 quesos", "Pizza con mezcla de cuatro quesos", 1200, R.drawable.pizza),
-//                    FoodItem("Pastel de papas", "Pastel casero de papa", 1200, R.drawable.pastel),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                    FoodItem("Ñoquis de papa", "Ñoquis con salsa de tomate", 1200, R.drawable.noquis),
-//                )
 
             LazyColumn(
                 modifier = Modifier.weight(1F),
@@ -89,9 +67,16 @@ fun DetailsScreen(
                     ProductItemCard(foodItem = viewModel.orderProducts[index], onClick = { viewModel.removeItem(it.id) })
                 }
             }
-            SnackBarCart(navController = controller, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {
-                Text("Confirmar", color = Color.White)
-            }
+            if (viewModel.orderProducts.size != 0)
+                {
+                    SnackBarCart(
+                        navController = controller,
+                        totalPrice = viewModel.totalPrice.value,
+                        totalItems = viewModel.totalItems.value,
+                    ) {
+                        Text("Confirmar", color = Color.White)
+                    }
+                }
         }
     }
 }
