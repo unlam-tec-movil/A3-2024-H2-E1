@@ -20,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +46,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
+import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import java.io.File
@@ -161,16 +164,15 @@ fun OrderConfirmationScreen(
                     textAlign = TextAlign.Center, // Centrar el texto
                 )
 
-//                Ícono de tilde verde
-//                Icon(
-//                    painter = painterResource(id = R.drawable.ic_check_circle),
-//                    contentDescription = "Confirmación exitosa",
-//                    tint = Color.Green,
-//                    modifier =
-//                    Modifier
-//                        .size(64.dp) // Tamaño del ícono
-//                        .padding(bottom = 16.dp),
-//                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_check_circle),
+                    contentDescription = "Confirmación exitosa",
+                    tint = Color.Green,
+                    modifier =
+                        Modifier
+                            .size(64.dp) // Tamaño del ícono
+                            .padding(bottom = 16.dp),
+                )
                 Image(
                     bitmap = qrCodeGenerated!!.asImageBitmap(),
                     contentDescription = "QR Code",
@@ -191,7 +193,6 @@ fun OrderConfirmationScreen(
                             .fillMaxWidth(),
                     textAlign = TextAlign.Center, // Centrar el texto
                 )
-
             } else {
                 Text(
                     text = "No se pudo generar el código QR",
@@ -203,33 +204,35 @@ fun OrderConfirmationScreen(
                     textAlign = TextAlign.Center,
                 )
             }
-            Column (
+            Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Button(
                     onClick = {
                         permissionLauncher.launch(Manifest.permission.CAMERA)
                     },
-
                     colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF67B5FF),
-                        contentColor = Color.White,
-                    ),
+                        ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF67B5FF),
+                            contentColor = Color.White,
+                        ),
                 ) {
                     Text(text = "Compartí con un amigo", fontFamily = tenoriteFamily)
                 }
                 // Botón de volver al inicio
                 Button(
-                    onClick = { controller.navigate(NavHostRouterPaths.HOME.route) },
+                    onClick = {
+                        controller.navigate(NavHostRouterPaths.HOME.route)
+                        viewModel.clearOrder()
+                    },
                     modifier = Modifier.padding(bottom = 16.dp),
                     colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF67B5FF), // Color de fondo (ejemplo púrpura)
-                        contentColor = Color.White, // Color del texto
-                    ),
+                        ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF67B5FF), // Color de fondo (ejemplo púrpura)
+                            contentColor = Color.White, // Color del texto
+                        ),
                 ) {
                     Text(text = "Volver al inicio", fontFamily = tenoriteFamily)
                 }

@@ -33,6 +33,10 @@ class UserOrderRepository : Serializable {
         }
     }
 
+    fun removeAllItems() {
+        items.clear()
+    }
+
     fun assignTable(number: Int) {
         userTable = number
     }
