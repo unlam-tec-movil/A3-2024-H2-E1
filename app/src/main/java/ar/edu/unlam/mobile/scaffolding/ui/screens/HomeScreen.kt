@@ -50,6 +50,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductList
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductsSearchBar
 import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @Composable
 fun HomeScreen(
@@ -212,7 +213,7 @@ fun HomeScreen(
                     modifier = Modifier.size(14.dp),
                 )
                 Spacer(modifier = Modifier.size(8.dp))
-                Text("Ir al carrito", color = Color.White)
+                Text("Ir al carrito", color = Color.White, fontFamily = tenoriteFamily)
             }
         }
     }

@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @Composable
 fun GoToMapButton(
@@ -34,6 +35,7 @@ fun GoToMapButton(
                 Modifier
                     .padding(6.dp),
             text = text,
+            fontFamily = tenoriteFamily,
             textDecoration = TextDecoration.Underline,
             textAlign = TextAlign.Start,
             fontWeight = FontWeight.Bold,

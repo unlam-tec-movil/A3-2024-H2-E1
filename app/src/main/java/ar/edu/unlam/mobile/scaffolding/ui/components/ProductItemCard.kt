@@ -27,12 +27,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import coil.compose.AsyncImage
 
 @Composable
@@ -74,13 +77,13 @@ fun ProductItemCard(
             ) {
                 Text(
                     text = foodItem.name,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = TextStyle(fontSize = 18.sp, fontFamily = tenoriteFamily,  fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(top = 8.dp),
                 )
                 Text(
                     text = foodItem.description,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 3,
+                    style = TextStyle(fontSize = 14.sp, fontFamily = tenoriteFamily, fontWeight = FontWeight.Normal),
+                    maxLines = 5,
                     overflow = TextOverflow.Ellipsis,
                     modifier =
                         Modifier
@@ -100,7 +103,7 @@ fun ProductItemCard(
                 ) {
                     Text(
                         text = "$${foodItem.price}",
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
+                        style = TextStyle(fontSize = 16.sp, fontFamily = tenoriteFamily, fontWeight = FontWeight.Bold),
                     )
                     if (showRemoveButton) {
                         Box(

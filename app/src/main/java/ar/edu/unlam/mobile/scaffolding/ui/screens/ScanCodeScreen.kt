@@ -23,13 +23,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import java.net.URLEncoder
@@ -57,7 +60,7 @@ fun ScanCodeScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Escanea el pedido del cliente") },
+                title = { Text("Escanea el pedido del cliente", style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp )) },
                 modifier = Modifier.padding(8.dp),
             )
         },

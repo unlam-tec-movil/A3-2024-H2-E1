@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +34,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @Composable
 fun SnackBarCart(
@@ -87,7 +89,8 @@ fun SnackBarCart(
                     style =
                         TextStyle(
                             fontSize = 24.sp,
-                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                            fontFamily = tenoriteFamily,
+                            fontWeight = FontWeight.Bold,
                         ),
                 )
                 Text(
@@ -96,7 +99,8 @@ fun SnackBarCart(
                     style =
                         TextStyle(
                             fontSize = 12.sp,
-                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                            fontFamily = tenoriteFamily,
+                            fontWeight = FontWeight.Bold,
                         ),
                 )
             }
@@ -128,6 +132,6 @@ fun SnackBarCartPreview() {
             modifier = Modifier.size(14.dp),
         )
         Spacer(modifier = Modifier.size(8.dp))
-        Text("Ir al carrito", color = Color.White)
+        Text("Ir al carrito", color = Color.White, fontFamily = tenoriteFamily)
     }
 }

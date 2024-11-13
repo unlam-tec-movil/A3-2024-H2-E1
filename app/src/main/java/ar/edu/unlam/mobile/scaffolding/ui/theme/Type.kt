@@ -2,16 +2,21 @@ package ar.edu.unlam.mobile.scaffolding.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-
+import ar.edu.unlam.mobile.scaffolding.R
+val tenoriteFamily = FontFamily(
+    Font(R.font.tenorite_regular, FontWeight.Normal),
+    Font(R.font.tenorite_black, FontWeight.Black),
+)
 // Set of Material typography styles to start with
 val Typography =
     Typography(
         bodyLarge =
             TextStyle(
-                fontFamily = FontFamily.Default,
+                fontFamily = tenoriteFamily,
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
@@ -34,3 +39,4 @@ val Typography =
     )
      */
     )
+

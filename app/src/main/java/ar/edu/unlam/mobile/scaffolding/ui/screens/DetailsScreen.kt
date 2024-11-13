@@ -19,12 +19,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
 import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +39,7 @@ fun DetailsScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Detalles del pedido") },
+                title = { Text("Detalles del pedido", style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp )) },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = { controller.navigate(NavHostRouterPaths.HOME.route) }) {
@@ -78,7 +81,7 @@ fun DetailsScreen(
                     totalPrice = viewModel.totalPrice.value,
                     totalItems = viewModel.totalItems.value,
                 ) {
-                    Text("Confirmar", color = Color.White)
+                    Text("Confirmar", color = Color.White,fontFamily = tenoriteFamily)
                 }
             }
         }

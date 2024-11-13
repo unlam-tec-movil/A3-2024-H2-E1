@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -44,6 +45,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import java.io.File
 import java.io.FileOutputStream
 
@@ -140,16 +142,17 @@ fun OrderConfirmationScreen(
             modifier =
                 Modifier
                     .padding(paddingValue)
+                    .fillMaxHeight()
                     .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             // QR
             if (qrCodeGenerated != null) {
                 // Texto de confirmación
                 Text(
                     text = "¡Pedido Confirmado!",
-                    style = TextStyle(fontSize = 24.sp),
+                    style = TextStyle(fontSize = 32.sp, fontFamily = tenoriteFamily),
                     modifier =
                         Modifier
                             .padding(top = 8.dp, bottom = 2.dp)
@@ -174,37 +177,25 @@ fun OrderConfirmationScreen(
                     contentScale = ContentScale.Fit,
                     modifier =
                         Modifier
-                            .size(200.dp)
+                            .size(320.dp)
                             .padding(16.dp),
                 )
 
                 // Texto explicativo del QR
                 Text(
                     text = "Mostrale el QR al mozo o presentalo en caja para finalizar el pago",
-                    style = TextStyle(fontSize = 16.sp),
+                    style = TextStyle(fontSize = 16.sp, fontFamily = tenoriteFamily),
                     modifier =
                         Modifier
                             .padding(vertical = 16.dp)
                             .fillMaxWidth(),
                     textAlign = TextAlign.Center, // Centrar el texto
                 )
-                Button(
-                    onClick = {
-                        permissionLauncher.launch(Manifest.permission.CAMERA)
-                    },
-                    modifier = Modifier.padding(16.dp),
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF67B5FF),
-                            contentColor = Color.White,
-                        ),
-                ) {
-                    Text(text = "Compartí con un amigo")
-                }
+
             } else {
                 Text(
                     text = "No se pudo generar el código QR",
-                    style = TextStyle(fontSize = 16.sp),
+                    style = TextStyle(fontSize = 16.sp, fontFamily = tenoriteFamily),
                     modifier =
                         Modifier
                             .padding(vertical = 16.dp)
@@ -212,17 +203,36 @@ fun OrderConfirmationScreen(
                     textAlign = TextAlign.Center,
                 )
             }
-            // Botón de volver al inicio
-            Button(
-                onClick = { controller.navigate(NavHostRouterPaths.HOME.route) },
-                modifier = Modifier.padding(vertical = 16.dp),
-                colors =
+            Column (
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    onClick = {
+                        permissionLauncher.launch(Manifest.permission.CAMERA)
+                    },
+
+                    colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF67B5FF),
+                        contentColor = Color.White,
+                    ),
+                ) {
+                    Text(text = "Compartí con un amigo", fontFamily = tenoriteFamily)
+                }
+                // Botón de volver al inicio
+                Button(
+                    onClick = { controller.navigate(NavHostRouterPaths.HOME.route) },
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    colors =
                     ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF67B5FF), // Color de fondo (ejemplo púrpura)
                         contentColor = Color.White, // Color del texto
                     ),
-            ) {
-                Text(text = "Volver al inicio")
+                ) {
+                    Text(text = "Volver al inicio", fontFamily = tenoriteFamily)
+                }
             }
         }
     }

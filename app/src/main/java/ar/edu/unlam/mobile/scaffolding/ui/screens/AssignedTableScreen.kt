@@ -29,14 +29,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.TableManualInput
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 
@@ -60,7 +63,7 @@ fun AssignedTableScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Escaneá el numero de mesa") },
+                title = { Text("Escaneá el numero de mesa",style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp )) },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = {
@@ -123,7 +126,7 @@ fun AssignedTableScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
                 modifier = Modifier.size(width = 220.dp, height = 32.dp),
             ) {
-                Text(text = "Continuar")
+                Text(text = "Continuar", fontFamily = tenoriteFamily,)
             }
             Spacer(modifier = Modifier.height(24.dp))
         }
