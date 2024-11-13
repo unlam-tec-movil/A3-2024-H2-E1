@@ -93,7 +93,10 @@ fun AssignedTableScreen(
                     title = "O ingresálo manualmente:",
                     onChangeTable = { viewModel.onChangeTable(it) },
                 )
+                Spacer(modifier = Modifier.height(24.dp))
+                Text("Mesa: $result")
             }
+
             Button(
                 onClick = { controller?.navigate(NavHostRouterPaths.CONFIRMATION.route) },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
