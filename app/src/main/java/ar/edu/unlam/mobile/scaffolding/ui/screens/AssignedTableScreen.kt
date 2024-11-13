@@ -45,7 +45,10 @@ fun AssignedTableScreen(
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = { controller?.navigate(NavHostRouterPaths.DETAILS.route) }) {
-                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = "Back",
+                        )
                     }
                 },
             )
@@ -93,5 +96,8 @@ fun AssignedTableScreen(
 @Preview(showBackground = true)
 @Composable
 fun AssignedTableScreenPreview() {
-    AssignedTableScreen(modifier = Modifier, viewModel = AssignedTableScreenViewModel(orderRepository = UserOrderRepository()))
+    AssignedTableScreen(
+        modifier = Modifier,
+        viewModel = AssignedTableScreenViewModel(orderRepository = UserOrderRepository()),
+    )
 }
