@@ -58,7 +58,7 @@ fun DetailsScreen(
                     .fillMaxSize(),
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
+//                Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
             }
 
             LazyColumn(

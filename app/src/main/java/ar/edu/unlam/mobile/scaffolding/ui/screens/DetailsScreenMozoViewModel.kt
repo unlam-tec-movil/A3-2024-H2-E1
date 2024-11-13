@@ -39,4 +39,9 @@ class DetailsScreenMozoViewModel
                 _orderProducts.emit(orderRepository.getItems())
             }
         }
+
+        fun clearOrder() {
+            orderRepository.removeAllItems()
+            orderRepository.clearTable()
+        }
     }

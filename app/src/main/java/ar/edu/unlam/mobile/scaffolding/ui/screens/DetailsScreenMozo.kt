@@ -86,6 +86,7 @@ fun DetailsScreenMozo(
 
             WaiterSnackBarCart(onClick = {
                 controller.navigate(NavHostRouterPaths.HOME.route)
+                viewModel.clearOrder()
             }, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {
                 Text("Volver a inicio", color = Color.White, fontFamily = tenoriteFamily)
             }
