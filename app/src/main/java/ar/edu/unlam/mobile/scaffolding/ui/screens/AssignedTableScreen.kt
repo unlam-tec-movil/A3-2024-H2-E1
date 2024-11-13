@@ -61,8 +61,13 @@ fun AssignedTableScreen(
                 title = { Text("Escaneá el numero de mesa") },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
-                    IconButton(onClick = { controller?.navigate(NavHostRouterPaths.DETAILS.route) }) {
-                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back")
+                    IconButton(onClick = {
+                        controller?.navigate(NavHostRouterPaths.DETAILS.route)
+                    }) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = "Back",
+                        )
                     }
                 },
             )
@@ -121,5 +126,8 @@ fun AssignedTableScreen(
 @Preview(showBackground = true)
 @Composable
 fun AssignedTableScreenPreview() {
-    AssignedTableScreen(modifier = Modifier, viewModel = AssignedTableScreenViewModel(orderRepository = UserOrderRepository()))
+    AssignedTableScreen(
+        modifier = Modifier,
+        viewModel = AssignedTableScreenViewModel(orderRepository = UserOrderRepository()),
+    )
 }

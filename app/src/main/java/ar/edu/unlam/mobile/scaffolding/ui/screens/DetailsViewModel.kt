@@ -39,7 +39,9 @@ class DetailsViewModel
         fun removeItem(id: Int) {
             orderRepository.removeItem(id)
             updateSnackBar()
-            orderProducts = orderRepository.getItems().toMutableStateList()
+            val removedItem = orderRepository.getItems()
+            orderProducts.clear()
+            orderProducts.addAll(removedItem)
         }
 
     fun generateQrCode(products : List<Product>): Bitmap? {
