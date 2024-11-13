@@ -44,7 +44,9 @@ fun AssignedTableScreen(
                 title = { Text("Escaneá el numero de mesa") },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
-                    IconButton(onClick = { controller?.navigate(NavHostRouterPaths.DETAILS.route) }) {
+                    IconButton(onClick = {
+                        controller?.navigate(NavHostRouterPaths.DETAILS.route)
+                    }) {
                         Icon(
                             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                             contentDescription = "Back",
