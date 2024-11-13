@@ -33,6 +33,10 @@ class UserOrderRepository : Serializable {
         }
     }
 
+    fun removeAllItems() {
+        items.clear()
+    }
+
     fun assignTable(number: Int) {
         userTable = number
     }
@@ -60,5 +64,9 @@ class UserOrderRepository : Serializable {
         this.userTable = repository.userTable
         this.items.clear()
         this.items.addAll(repository.items)
+    }
+
+    fun clearTable() {
+        userTable = 0
     }
 }

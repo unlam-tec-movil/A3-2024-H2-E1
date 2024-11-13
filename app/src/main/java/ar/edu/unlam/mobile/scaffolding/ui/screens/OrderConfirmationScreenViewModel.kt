@@ -19,6 +19,11 @@ class OrderConfirmationScreenViewModel
             println("==JSON para QR: ${orderRepository.toJson()}")
         }
 
+        fun clearOrder() {
+            orderRepository.removeAllItems()
+            orderRepository.clearTable()
+        }
+
         fun generateQrCode(json: String): Bitmap? {
             val matrix = QRCodeWriter().encode(json, BarcodeFormat.QR_CODE, 500, 500)
             val width = matrix.width
