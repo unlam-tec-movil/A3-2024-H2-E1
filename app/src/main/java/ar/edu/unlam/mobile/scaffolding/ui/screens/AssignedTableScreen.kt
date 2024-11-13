@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -45,6 +47,7 @@ fun AssignedTableScreen(
     controller: NavHostController? = null,
     viewModel: AssignedTableScreenViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     var result by remember { mutableStateOf("") }
     val scanLauncher = rememberLauncherForActivityResult(contract = ScanContract(), onResult =
     { newResult ->
@@ -98,7 +101,13 @@ fun AssignedTableScreen(
             }
 
             Button(
-                onClick = { controller?.navigate(NavHostRouterPaths.CONFIRMATION.route) },
+                onClick = {
+                    if(result.isNotEmpty()){
+                        controller?.navigate(NavHostRouterPaths.CONFIRMATION.route)
+                    } else{
+                        Toast.makeText(context, "Por favor, escaneá el código QR o ingresá el número de mesa manualmente", Toast.LENGTH_SHORT).show()
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
                 modifier = Modifier.size(width = 220.dp, height = 32.dp),
             ) {
