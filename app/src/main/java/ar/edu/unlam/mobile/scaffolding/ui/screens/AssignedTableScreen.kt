@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.screens
 
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +35,8 @@ import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.TableManualInput
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,6 +45,13 @@ fun AssignedTableScreen(
     controller: NavHostController? = null,
     viewModel: AssignedTableScreenViewModel = hiltViewModel(),
 ) {
+    var result by remember { mutableStateOf("") }
+    val scanLauncher = rememberLauncherForActivityResult(contract = ScanContract(), onResult =
+    { newResult ->
+        result = newResult.contents?: "No results"
+
+
+    } )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -70,7 +84,9 @@ fun AssignedTableScreen(
                         Modifier
                             .width(296.dp)
                             .height(370.dp),
-                    onClick = {},
+                    onClick = {
+                        scanLauncher.launch(ScanOptions())
+                    },
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 TableManualInput(

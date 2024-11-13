@@ -92,4 +92,6 @@ dependencies {
     ksp(libs.androidx.room.ksp)
 
     implementation(libs.coil)
+
+    implementation(libs.zxing)
 }
