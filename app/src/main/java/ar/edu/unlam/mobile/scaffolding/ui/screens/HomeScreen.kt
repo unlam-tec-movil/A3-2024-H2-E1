@@ -163,7 +163,7 @@ fun HomeScreen(
                         permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                     },
                 )
-                GoToTableQRButton(text = "SCAN QR")
+//                GoToTableQRButton(text = "SCAN QR")
             }
             Box(
                 modifier =
