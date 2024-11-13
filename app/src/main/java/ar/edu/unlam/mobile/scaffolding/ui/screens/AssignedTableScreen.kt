@@ -49,12 +49,14 @@ fun AssignedTableScreen(
 ) {
     val context = LocalContext.current
     var result by remember { mutableStateOf("") }
-    val scanLauncher = rememberLauncherForActivityResult(contract = ScanContract(), onResult =
-    { newResult ->
-        result = newResult.contents?: "No results"
-
-
-    } )
+    val scanLauncher =
+        rememberLauncherForActivityResult(
+            contract = ScanContract(),
+            onResult =
+                { newResult ->
+                    result = newResult.contents ?: "No results"
+                },
+        )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -107,10 +109,15 @@ fun AssignedTableScreen(
 
             Button(
                 onClick = {
-                    if(result.isNotEmpty()){
+                    if (result.isNotEmpty() || viewModel.getTable() > 0) {
                         controller?.navigate(NavHostRouterPaths.CONFIRMATION.route)
-                    } else{
-                        Toast.makeText(context, "Por favor, escaneá el código QR o ingresá el número de mesa manualmente", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast
+                            .makeText(
+                                context,
+                                "Por favor, escaneá el código QR o ingresá el número de mesa manualmente",
+                                Toast.LENGTH_SHORT,
+                            ).show()
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),

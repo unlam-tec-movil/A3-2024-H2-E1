@@ -94,4 +94,6 @@ dependencies {
     implementation(libs.coil)
 
     implementation(libs.zxing)
+
+    implementation(libs.gson)
 }

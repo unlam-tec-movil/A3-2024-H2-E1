@@ -8,4 +8,6 @@ enum class NavHostRouterPaths(
     DETAILS("details"),
     ASSIGNED_TABLE("assigned_table"),
     CONFIRMATION("confirmation"),
+    SCAN_ORDER_CODE("scan_order_code"),
+    WAITER_DETAILS("waiter_details"),
 }
