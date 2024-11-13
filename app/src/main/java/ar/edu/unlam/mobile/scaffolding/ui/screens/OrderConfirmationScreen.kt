@@ -152,6 +152,15 @@ fun OrderConfirmationScreen(
         ) {
             // QR
             if (qrCodeGenerated != null) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_check_circle),
+                    contentDescription = "Confirmación exitosa",
+                    tint = Color.Green,
+                    modifier =
+                    Modifier
+                        .size(32.dp) // Tamaño del ícono
+                        .padding(bottom = 5.dp),
+                )
                 // Texto de confirmación
                 Text(
                     text = "¡Pedido Confirmado!",
@@ -164,15 +173,6 @@ fun OrderConfirmationScreen(
                     textAlign = TextAlign.Center, // Centrar el texto
                 )
 
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_check_circle),
-                    contentDescription = "Confirmación exitosa",
-                    tint = Color.Green,
-                    modifier =
-                        Modifier
-                            .size(64.dp) // Tamaño del ícono
-                            .padding(bottom = 16.dp),
-                )
                 Image(
                     bitmap = qrCodeGenerated!!.asImageBitmap(),
                     contentDescription = "QR Code",

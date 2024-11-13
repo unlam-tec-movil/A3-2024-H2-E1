@@ -65,4 +65,8 @@ class UserOrderRepository : Serializable {
         this.items.clear()
         this.items.addAll(repository.items)
     }
+
+    fun clearTable() {
+        userTable = 0
+    }
 }

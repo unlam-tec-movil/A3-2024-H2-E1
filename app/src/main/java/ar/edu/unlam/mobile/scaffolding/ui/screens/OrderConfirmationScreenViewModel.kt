@@ -21,6 +21,7 @@ class OrderConfirmationScreenViewModel
 
         fun clearOrder() {
             orderRepository.removeAllItems()
+            orderRepository.clearTable()
         }
 
         fun generateQrCode(json: String): Bitmap? {
