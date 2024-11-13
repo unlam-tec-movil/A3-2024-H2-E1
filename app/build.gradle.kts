@@ -96,4 +96,6 @@ dependencies {
     implementation(libs.zxing)
 
     implementation(libs.gson)
+
+    debugImplementation(libs.org.mockito.kotlin)
 }
