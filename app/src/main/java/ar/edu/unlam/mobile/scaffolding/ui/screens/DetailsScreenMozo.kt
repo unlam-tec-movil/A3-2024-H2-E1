@@ -73,7 +73,11 @@ fun DetailsScreenMozo(
                 contentPadding = PaddingValues(16.dp),
             ) {
                 items(orderProducts) { product ->
-                    ProductItemCard(foodItem = product, onClick = { })
+                    ProductItemCard(
+                        foodItem = product,
+                        onAddClick = {},
+                        onRemoveClick = {},
+                    )
                 }
             }
 
