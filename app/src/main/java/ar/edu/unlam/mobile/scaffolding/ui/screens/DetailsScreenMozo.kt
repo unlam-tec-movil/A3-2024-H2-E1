@@ -21,14 +21,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
+import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
-import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.components.WaiterSnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,7 +84,11 @@ fun DetailsScreenMozo(
                 }
             }
 
-            SnackBarCart(navController = controller, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {}
+            WaiterSnackBarCart(onClick = {
+                controller.navigate(NavHostRouterPaths.HOME.route)
+            }, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {
+                Text("Volver a inicio", color = Color.White, fontFamily = tenoriteFamily)
+            }
         }
     }
 }
@@ -92,5 +99,5 @@ fun PreviewDetailsScreenMozo() {
     // Usamos un controlador de navegación falso para la previsualización
     val navController = rememberNavController()
 
-    DetailsScreenMozo(controller = navController, jsonOrder = "")
+    DetailsScreenMozo(controller = navController, viewModel = DetailsScreenMozoViewModel(UserOrderRepository()), jsonOrder = "")
 }
