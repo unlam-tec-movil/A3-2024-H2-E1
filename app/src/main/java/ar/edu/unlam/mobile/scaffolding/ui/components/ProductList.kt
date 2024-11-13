@@ -18,7 +18,12 @@ fun ProductList(
         contentPadding = PaddingValues(16.dp),
     ) {
         items(products.size) { index ->
-            ProductItemCard(foodItem = products[index], onClick = onItemClick)
+            ProductItemCard(
+                foodItem = products[index],
+                onAddClick = { onItemClick(it) },
+                onRemoveClick = {},
+                showRemoveButton = false,
+            )
         }
     }
 }

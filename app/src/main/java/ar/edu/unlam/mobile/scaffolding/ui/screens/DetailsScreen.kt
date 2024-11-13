@@ -64,19 +64,23 @@ fun DetailsScreen(
                 contentPadding = PaddingValues(16.dp),
             ) {
                 items(viewModel.orderProducts.size) { index ->
-                    ProductItemCard(foodItem = viewModel.orderProducts[index], onClick = { viewModel.removeItem(it.id) })
+                    ProductItemCard(
+                        foodItem = viewModel.orderProducts[index],
+                        onAddClick = {},
+                        onRemoveClick = { viewModel.removeItem(it.id) },
+                        showRemoveButton = true,
+                    )
                 }
             }
-            if (viewModel.orderProducts.size != 0)
-                {
-                    SnackBarCart(
-                        navController = controller,
-                        totalPrice = viewModel.totalPrice.value,
-                        totalItems = viewModel.totalItems.value,
-                    ) {
-                        Text("Confirmar", color = Color.White)
-                    }
+            if (viewModel.orderProducts.size != 0) {
+                SnackBarCart(
+                    navController = controller,
+                    totalPrice = viewModel.totalPrice.value,
+                    totalItems = viewModel.totalItems.value,
+                ) {
+                    Text("Confirmar", color = Color.White)
                 }
+            }
         }
     }
 }

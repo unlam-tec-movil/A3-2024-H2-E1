@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -36,7 +38,9 @@ import coil.compose.AsyncImage
 @Composable
 fun ProductItemCard(
     foodItem: Product,
-    onClick: (Product) -> Unit,
+    onAddClick: (Product) -> Unit,
+    onRemoveClick: (Product) -> Unit,
+    showRemoveButton: Boolean = false,
 ) {
     Card(
         modifier =
@@ -98,22 +102,42 @@ fun ProductItemCard(
                         text = "$${foodItem.price}",
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
                     )
-                    Box(
-                        modifier =
-                            Modifier
-                                .size(28.dp)
-                                .background(
-                                    color = colorResource(id = R.color.sky),
-                                    shape = CircleShape,
-                                ).clickable { onClick(foodItem) },
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.add_icon),
-                            contentDescription = "Check icon",
-                            tint = Color.White,
-                            modifier = Modifier.size(16.dp),
-                        )
+                    if (showRemoveButton) {
+                        Box(
+                            modifier =
+                                Modifier
+                                    .size(28.dp)
+                                    .background(
+                                        color = colorResource(id = R.color.sky),
+                                        shape = CircleShape,
+                                    ).clickable { onRemoveClick(foodItem) },
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Delete,
+                                contentDescription = "Check icon",
+                                tint = Color.White,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+                    } else {
+                        Box(
+                            modifier =
+                                Modifier
+                                    .size(28.dp)
+                                    .background(
+                                        color = colorResource(id = R.color.sky),
+                                        shape = CircleShape,
+                                    ).clickable { onAddClick(foodItem) },
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.add_icon),
+                                contentDescription = "Check icon",
+                                tint = Color.White,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
                     }
                 }
             }
@@ -134,6 +158,7 @@ fun ProductItemCardPreview() {
                 image = "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg",
                 category = "Comida rápida",
             ),
-        onClick = {},
+        onAddClick = {},
+        onRemoveClick = {},
     )
 }
