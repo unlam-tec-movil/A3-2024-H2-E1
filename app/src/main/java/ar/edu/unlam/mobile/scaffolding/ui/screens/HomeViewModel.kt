@@ -44,6 +44,10 @@ class HomeViewModel
         private val _uiState = MutableStateFlow(HomeUIState())
         val uiState = _uiState.asStateFlow()
 
+        var searchQuery by mutableStateOf("")
+
+        private var allProducts: List<Product> = listOf()
+
         var totalPrice = mutableStateOf(0.00)
         var totalItems = mutableStateOf(0)
 
@@ -60,6 +64,7 @@ class HomeViewModel
             viewModelScope.launch {
                 try {
                     productsUseCases.getProducts().collect {
+                        allProducts = it
                         _uiState.value = HomeUIState(productsState = ProductsUIState.Success(it))
                         Log.d("HomeViewModel", "Products: $it")
                     }
@@ -67,6 +72,17 @@ class HomeViewModel
                     _uiState.value = HomeUIState(productsState = ProductsUIState.Error(e.message ?: "Error"))
                 }
             }
+        }
+
+        fun filterProducts(query: String) {
+            searchQuery = query
+            val filteredProducts =
+                if (query.isEmpty()) {
+                    allProducts
+                } else {
+                    allProducts.filter { it.name.contains(query, ignoreCase = true) }
+                }
+            _uiState.value = HomeUIState(productsState = ProductsUIState.Success(filteredProducts))
         }
 
         private fun insertProductsDB() {

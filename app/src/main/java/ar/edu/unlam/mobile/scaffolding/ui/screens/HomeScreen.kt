@@ -64,6 +64,10 @@ fun HomeScreen(
     var showAgentCodeDialog = remember { mutableStateOf(false) }
     var isShakeDetected = remember { mutableStateOf(false) }
 
+    fun onSearchQueryChange(query: String) {
+        viewModel.filterProducts(query)
+    }
+
     // Sensor Manager and Listener for Shake Detection
     val sensorManager =
         remember { context.getSystemService(Context.SENSOR_SERVICE) as SensorManager }
@@ -166,7 +170,10 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
             ) {
-                ProductsSearchBar(searchQuery = "", onSearchQueryChange = {})
+                ProductsSearchBar(
+                    searchQuery = viewModel.searchQuery,
+                    onSearchQueryChange = { onSearchQueryChange(it) },
+                )
             }
             Box {
                 Column {
