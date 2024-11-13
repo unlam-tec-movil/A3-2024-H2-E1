@@ -14,4 +14,6 @@ class AssignedTableScreenViewModel
         fun onChangeTable(number: Int) {
             orderRepository.assignTable(number)
         }
+
+        fun getTable(): Int = orderRepository.getTable()
     }

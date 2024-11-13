@@ -15,8 +15,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.ui.screens.AssignedTableScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.DetailsScreen
+import ar.edu.unlam.mobile.scaffolding.ui.screens.DetailsScreenMozo
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.OrderConfirmationScreen
+import ar.edu.unlam.mobile.scaffolding.ui.screens.ScanCodeScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.map.MapScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,6 +70,15 @@ fun MainScreen() {
             }
             composable(NavHostRouterPaths.CONFIRMATION.route) {
                 OrderConfirmationScreen(controller = controller)
+            }
+            composable(NavHostRouterPaths.SCAN_ORDER_CODE.route) {
+                ScanCodeScreen(controller = controller)
+            }
+            composable("${NavHostRouterPaths.WAITER_DETAILS.route}/{json}") { backStackEntry ->
+                val jsonString = backStackEntry.arguments?.getString("json")
+                jsonString?.let {
+                    DetailsScreenMozo(controller = controller, jsonOrder = it)
+                }
             }
         }
     }
