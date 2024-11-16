@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.assignedTable
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,10 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.TableManualInput
+import ar.edu.unlam.mobile.scaffolding.ui.navigation.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
@@ -63,7 +63,7 @@ fun AssignedTableScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Escaneá el numero de mesa",style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp )) },
+                title = { Text("Escaneá el numero de mesa", style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp)) },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = {
@@ -126,7 +126,7 @@ fun AssignedTableScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0XFF67B5FF)),
                 modifier = Modifier.size(width = 220.dp, height = 32.dp),
             ) {
-                Text(text = "Continuar", fontFamily = tenoriteFamily,)
+                Text(text = "Continuar", fontFamily = tenoriteFamily)
             }
             Spacer(modifier = Modifier.height(24.dp))
         }

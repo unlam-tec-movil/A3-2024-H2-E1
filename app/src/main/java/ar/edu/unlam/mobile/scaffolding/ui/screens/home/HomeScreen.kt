@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.home
 
 import android.Manifest
 import android.content.Context
@@ -42,14 +42,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 import ar.edu.unlam.mobile.scaffolding.ui.components.CategoryList
 import ar.edu.unlam.mobile.scaffolding.ui.components.GoToMapButton
-import ar.edu.unlam.mobile.scaffolding.ui.components.GoToTableQRButton
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductList
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductsSearchBar
 import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.navigation.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @Composable

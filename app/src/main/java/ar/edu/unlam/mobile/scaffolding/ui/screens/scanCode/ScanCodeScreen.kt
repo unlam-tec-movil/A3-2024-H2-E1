@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.scanCode
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
@@ -29,9 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.CameraButton
+import ar.edu.unlam.mobile.scaffolding.ui.navigation.NavHostRouterPaths
+import ar.edu.unlam.mobile.scaffolding.ui.screens.assignedTable.AssignedTableScreenViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
@@ -60,7 +61,7 @@ fun ScanCodeScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Escanea el pedido del cliente", style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp )) },
+                title = { Text("Escanea el pedido del cliente", style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp)) },
                 modifier = Modifier.padding(8.dp),
             )
         },

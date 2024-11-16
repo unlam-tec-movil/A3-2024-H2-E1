@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.details
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -16,47 +15,34 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
-import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.ui.components.ProductItemCard
-import ar.edu.unlam.mobile.scaffolding.ui.components.WaiterSnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.components.SnackBarCart
+import ar.edu.unlam.mobile.scaffolding.ui.navigation.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreenMozo(
+fun DetailsScreen(
+    modifier: Modifier = Modifier,
+    viewModel: DetailsViewModel = hiltViewModel(),
     controller: NavHostController,
-    viewModel: DetailsScreenMozoViewModel = hiltViewModel(),
-    jsonOrder: String,
 ) {
-    LaunchedEffect(key1 = jsonOrder) {
-        viewModel.setOrder(jsonOrder)
-    }
-
-    val orderProducts by viewModel.orderProducts.collectAsState()
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Detalles del pedido") },
+                title = { Text("Detalles del pedido", style = TextStyle(fontFamily = tenoriteFamily, fontSize = 24.sp)) },
                 modifier = Modifier.padding(8.dp),
                 navigationIcon = {
                     IconButton(onClick = { controller.navigate(NavHostRouterPaths.HOME.route) }) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "Back",
-                        )
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back")
                     }
                 },
             )
@@ -70,35 +56,33 @@ fun DetailsScreenMozo(
                     .padding(paddingValue)
                     .fillMaxSize(),
         ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+//                Text("Con un pedido mayor a $20.000, tenés un 10% de descuento en tu próxima compra.")
+            }
+
             LazyColumn(
                 modifier = Modifier.weight(1F),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(16.dp),
             ) {
-                items(orderProducts) { product ->
+                items(viewModel.orderProducts.size) { index ->
                     ProductItemCard(
-                        foodItem = product,
+                        foodItem = viewModel.orderProducts[index],
                         onAddClick = {},
-                        onRemoveClick = {},
+                        onRemoveClick = { viewModel.removeItem(it.id) },
+                        showRemoveButton = true,
                     )
                 }
             }
-
-            WaiterSnackBarCart(onClick = {
-                controller.navigate(NavHostRouterPaths.HOME.route)
-                viewModel.clearOrder()
-            }, totalPrice = viewModel.totalPrice.value, totalItems = viewModel.totalItems.value) {
-                Text("Volver a inicio", color = Color.White, fontFamily = tenoriteFamily)
+            if (viewModel.orderProducts.size != 0) {
+                SnackBarCart(
+                    navController = controller,
+                    totalPrice = viewModel.totalPrice.value,
+                    totalItems = viewModel.totalItems.value,
+                ) {
+                    Text("Confirmar", color = Color.White, fontFamily = tenoriteFamily)
+                }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewDetailsScreenMozo() {
-    // Usamos un controlador de navegación falso para la previsualización
-    val navController = rememberNavController()
-
-    DetailsScreenMozo(controller = navController, viewModel = DetailsScreenMozoViewModel(UserOrderRepository()), jsonOrder = "")
 }
