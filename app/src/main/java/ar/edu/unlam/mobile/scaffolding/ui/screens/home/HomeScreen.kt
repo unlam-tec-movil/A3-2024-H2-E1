@@ -6,6 +6,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -107,6 +108,7 @@ fun HomeScreen(
                 controller.navigate("map")
             } else {
                 // Denied
+                Toast.makeText(context, "Permiso de ubicacion denegado", Toast.LENGTH_SHORT).show()
             }
         }
 

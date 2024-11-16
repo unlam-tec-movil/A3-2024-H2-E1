@@ -6,7 +6,6 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
-import ar.edu.unlam.mobile.scaffolding.domain.products.usecases.ProductsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,7 +13,6 @@ import javax.inject.Inject
 class DetailsViewModel
     @Inject
     constructor(
-        private val productsUseCases: ProductsUseCases,
         private val orderRepository: UserOrderRepository,
     ) : ViewModel() {
         var totalPrice = mutableStateOf(0.00)
