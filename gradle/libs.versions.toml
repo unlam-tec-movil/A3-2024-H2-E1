@@ -2,6 +2,7 @@
 agp = "8.5.2"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
+testCore = "1.6.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -21,10 +22,12 @@ storage = "1.5.0"
 room = "2.6.1"
 coilCompose = "2.4.0"
 gsonVersion = "2.8.8"
+mockitoVersion = "5.3.1"
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -59,6 +62,8 @@ coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose
 zxing = { group = "com.journeyapps", name = "zxing-android-embedded", version = "4.3.0" }
 
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion" }
+
+org-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

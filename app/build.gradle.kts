@@ -44,6 +44,9 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.11"
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -65,12 +68,15 @@ dependencies {
     implementation(libs.androidx.runtime.android)
     implementation(libs.androidx.storage)
     testImplementation(libs.junit)
+    testImplementation(libs.org.mockito.kotlin)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(libs.androidx.test.core)
+    debugImplementation(libs.org.mockito.kotlin)
 
     // Dagger + Hilt
     implementation(libs.google.dagger.hilt.android)
