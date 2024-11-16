@@ -2,8 +2,8 @@ package ar.edu.unlam.mobile.scaffolding.data.di
 
 import android.content.Context
 import androidx.room.Room
+import ar.edu.unlam.mobile.scaffolding.data.local.AppDatabase
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
-import ar.edu.unlam.mobile.scaffolding.data.restaurants.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

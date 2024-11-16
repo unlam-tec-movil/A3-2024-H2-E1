@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.assignedTable
 
 import androidx.lifecycle.ViewModel
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository

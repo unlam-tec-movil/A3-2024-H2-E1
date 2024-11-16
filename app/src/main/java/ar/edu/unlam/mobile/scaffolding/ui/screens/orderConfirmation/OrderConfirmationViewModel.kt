@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.orderConfirmation
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderConfirmationScreenViewModel
+class OrderConfirmationViewModel
     @Inject
     constructor(
         private val orderRepository: UserOrderRepository,

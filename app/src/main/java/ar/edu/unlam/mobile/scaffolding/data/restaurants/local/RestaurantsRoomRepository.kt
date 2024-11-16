@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.data.restaurants.local
 
+import ar.edu.unlam.mobile.scaffolding.data.local.AppDatabase
 import ar.edu.unlam.mobile.scaffolding.data.restaurants.repository.RestaurantsLocalRepository
 import ar.edu.unlam.mobile.scaffolding.domain.restaurants.models.Restaurant
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.detailsMozo
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsScreenMozoViewModel
+class DetailsMozoViewModel
     @Inject
     constructor(
         private val orderRepository: UserOrderRepository,

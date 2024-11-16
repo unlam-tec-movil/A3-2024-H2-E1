@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding
+package ar.edu.unlam.mobile.scaffolding.ui.navigation
 
 enum class NavHostRouterPaths(
     val route: String,

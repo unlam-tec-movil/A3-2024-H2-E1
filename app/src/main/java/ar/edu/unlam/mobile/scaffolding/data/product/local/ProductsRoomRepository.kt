@@ -1,7 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.data.product.local
 
+import ar.edu.unlam.mobile.scaffolding.data.local.AppDatabase
 import ar.edu.unlam.mobile.scaffolding.data.product.repository.ProductsLocalRepository
-import ar.edu.unlam.mobile.scaffolding.data.restaurants.local.AppDatabase
 import ar.edu.unlam.mobile.scaffolding.domain.products.models.Product
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.screens
+package ar.edu.unlam.mobile.scaffolding.ui.screens.orderConfirmation
 
 import android.Manifest
 import android.content.Context
@@ -45,9 +45,9 @@ import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import ar.edu.unlam.mobile.scaffolding.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.data.local.UserOrderRepository
+import ar.edu.unlam.mobile.scaffolding.ui.navigation.NavHostRouterPaths
 import ar.edu.unlam.mobile.scaffolding.ui.theme.tenoriteFamily
 import java.io.File
 import java.io.FileOutputStream
@@ -56,7 +56,7 @@ import java.io.FileOutputStream
 @Composable
 fun OrderConfirmationScreen(
     controller: NavController,
-    viewModel: OrderConfirmationScreenViewModel = hiltViewModel(),
+    viewModel: OrderConfirmationViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -157,9 +157,9 @@ fun OrderConfirmationScreen(
                     contentDescription = "Confirmación exitosa",
                     tint = Color.Green,
                     modifier =
-                    Modifier
-                        .size(32.dp) // Tamaño del ícono
-                        .padding(bottom = 5.dp),
+                        Modifier
+                            .size(32.dp) // Tamaño del ícono
+                            .padding(bottom = 5.dp),
                 )
                 // Texto de confirmación
                 Text(
@@ -244,5 +244,5 @@ fun OrderConfirmationScreen(
 @Preview(showBackground = true)
 @Composable
 fun OrderConfirmationScreenPreview() {
-    OrderConfirmationScreen(controller = rememberNavController(), viewModel = OrderConfirmationScreenViewModel(UserOrderRepository()))
+    OrderConfirmationScreen(controller = rememberNavController(), viewModel = OrderConfirmationViewModel(UserOrderRepository()))
 }
