@@ -35,4 +35,16 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+  desc "Distribute to Firebase App Distribution"
+    lane :distribute_to_firebase do
+      gradle(task: "clean assembleRelease")
+      firebase_app_distribution(
+        debug: true,
+        app: "1:910789066360:android:4a97fd5c9a0f8f4a80378d",
+        testers: "miguelzuritaweb@gmail.com",
+        release_notes: "Release notes for this build",
+        service_credentials_file: "fastlane/saborify-bd18e-4b3a931364d3.json"
+      )
+    end
 end
