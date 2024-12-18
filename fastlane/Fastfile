@@ -42,8 +42,9 @@ platform :android do
       firebase_app_distribution(
         debug: true,
         app: "1:910789066360:android:4a97fd5c9a0f8f4a80378d",
-        testers: "miguelzuritaweb@gmail.com",
-        release_notes: "Release notes for this build",
+#         testers: "user@email.com",
+        groups: "qa",
+        release_notes: "New release for the QA team",
         service_credentials_file: "fastlane/saborify-bd18e-4b3a931364d3.json"
       )
     end
