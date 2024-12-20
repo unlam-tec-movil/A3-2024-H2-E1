@@ -17,7 +17,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -34,6 +34,22 @@ android {
             )
         }
     }
+
+    flavorDimensions("default")
+
+    productFlavors {
+        create("blank") {
+            dimension = "default"
+            applicationIdSuffix = ".blank"
+            versionNameSuffix = "-blank"
+        }
+        create("saborify") {
+            dimension = "default"
+            applicationIdSuffix = ".saborify"
+            versionNameSuffix = "-saborify"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
