@@ -175,6 +175,7 @@ fun HomeScreen(
                 ProductsSearchBar(
                     searchQuery = viewModel.searchQuery,
                     onSearchQueryChange = { onSearchQueryChange(it) },
+                    hintText = "Buscar platos...",
                 )
             }
             Box {

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 fun ProductsSearchBar(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
+    hintText: String,
 ) {
     OutlinedTextField(
         value = searchQuery,
@@ -40,7 +41,7 @@ fun ProductsSearchBar(
         modifier = Modifier.fillMaxWidth(),
         placeholder = {
             Text(
-                text = "Buscar productos...",
+                text = hintText,
                 color = Color.Gray,
             )
         },
@@ -50,5 +51,5 @@ fun ProductsSearchBar(
 @Preview
 @Composable
 fun ProductsSearchBarPreview() {
-    ProductsSearchBar(searchQuery = "", onSearchQueryChange = {})
+    ProductsSearchBar(searchQuery = "", onSearchQueryChange = {}, hintText = "Buscar productos...")
 }

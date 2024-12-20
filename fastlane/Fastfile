@@ -38,7 +38,7 @@ platform :android do
 
     desc "Distribute Saborify to Firebase App Distribution"
     lane :distribute_saborify_to_firebase do
-        gradle(task: "clean assembleSaborifyRelease")
+        gradle(task: "assembleSaborifyDebug")
         firebase_app_distribution(
             debug: true,
             app: "1:168680760801:android:2f3e3f38e01e5482711ea0",
@@ -50,7 +50,7 @@ platform :android do
 
     desc "Distribute Blank to Firebase App Distribution"
     lane :distribute_blank_to_firebase do
-        gradle(task: "clean assembleBlankRelease")
+        gradle(task: "assembleBlankDebug")
         firebase_app_distribution(
             debug: true,
             app: "1:1089739619010:android:450e7897f96e8eb318595b",
@@ -62,6 +62,7 @@ platform :android do
 
     desc "Distribute all flavors to Firebase App Distribution"
     lane :distribute_all_flavors_to_firebase do
+        gradle(task: "clean")
         distribute_saborify_to_firebase
         distribute_blank_to_firebase
     end
